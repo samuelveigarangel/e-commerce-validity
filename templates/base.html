@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}Gerar Receita{% endblock %}</title>
+
+    <!--Boostrap-->
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <main>
+        <style>
+        .navbar-custom{
+            background-color: rgb(178, 34, 34);
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .navbar-text {
+            color: black;
+        }
+        .nav-link{
+            color: black;
+        }
+        .nav-link:hover{
+            color: black;
+        }
+        #input-search{
+            width: 500px;
+        }
+        </style>
+        <header>
+            <nav class="navbar navbar-custom">
+                <a href="{% url 'home' %}" class="navbar-brand">Início</a>
+                <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded">
+                  <input id='input-search' class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                
+                
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                        </li>
+                    </ul>
+                {% else %}
+                <button type="button" class="btn btn-dark my-2 my-sm-0" data-toggle="modal" data-target="#exampleModal">Login</button>
+                {% include '_partials/partial_modal.html' %}
+                {% endif %}
+        </header>
+        <div class="container">
+            <!--{% include 'message/messages.html' %}-->
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

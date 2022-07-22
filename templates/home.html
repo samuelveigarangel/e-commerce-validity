@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content%}
+
+<style>
+  body {
+   color: rgb(236, 0, 39);
+   text-align: center;
+   } 
+
+ </style>
+<h1>Hello, {{ user.username|default:'Guest' }}</h1>
+
+<p> Welcome to the Our site</p>
+
+  {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}">Logout</a>
+
+  {% else %}
+      <a href="{% url 'signup' %}">Sign Up</a>
+  {% endif %}
+</div>
+{% endblock%}
