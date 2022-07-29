@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path, os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
+    'produtos.apps.ProdutosConfig',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,6 @@ if DEBUG:
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
+MEDIA_URL = '/media/'

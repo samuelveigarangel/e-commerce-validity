@@ -10,34 +10,20 @@
         <!-- CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
 
 </head>
 <body>
     <main>
-        <style>
-        .navbar-custom{
-            background-color: rgb(178, 34, 34);
-        }
-        .navbar-custom .navbar-brand,
-        .navbar-custom .navbar-text {
-            color: black;
-        }
-        .nav-link{
-            color: black;
-        }
-        .nav-link:hover{
-            color: black;
-        }
-        #input-search{
-            width: 500px;
-        }
-        </style>
         <header>
             <nav class="navbar navbar-custom">
                 <a href="{% url 'home' %}" class="navbar-brand">Início</a>
-                <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded">
-                  <input id='input-search' class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+                <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded" action="{% url 'produto:procurar_produto' %}" method="get">
+                  {% csrf_token %}  
+                  <input id='input-search' name='pesquisar_produto' class="form-control mr-sm-1" type="text" placeholder="Procurar produtos"></input>
+                  <button type="button" class="btn btn-dark">Procurar</button>
                 </form>
                 
                 

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<style>
+h2{
+    color: rgb(178, 34, 34)
+}
+h1{
+    color: #565656;
+}
+
+img{
+    display: block;
+    margin: 0 auto;
+}
+
+.col{
+    margin-top: 100px;
+}
+
+.p-nome-detalhes{
+    font-weight: bold;
+    font-size: 20px;
+    /* display: inline; */
+    margin-right: 10%;
+    color: #565656;
+}
+
+.p-text-detalhes{
+    color: #4f4f4f;
+  
+}
+.detalhes{
+    display: flex;
+    align-items: baseline;
+    /* width: 50%; */
+}
+#link {
+    text-decoration: none;
+    color: white;
+}
+</style>
+
+<div class="row">
+    <div class="col">    
+        {%if produto.image %}
+            <img class="img-produto" src='/media/{{produto.image}}'>
+        {% else%}
+            <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
+        {%endif%}
+    </div>
+    <div class="col">
+        <h1>{{ produto.produto_nome }}</h1>
+        <hr>       
+        <h2>R${{ produto.preco }}</h2>
+        <div class="detalhes">
+            <p class="p-nome-detalhes">Descrição</p>
+            <p class='p-text-detalhes'>{{produto.descricao}} asdasdasd as d asdasdasdasdasdasa s asdasd asd sads </p>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-dark"><a  id="link" href="{{ produto.add_ao_carrinho }}">Adicionar ao carrinho</a></button>
+    </div>
+</div>
+{% endblock %}
