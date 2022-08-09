@@ -1,5 +1,4 @@
 from django import template
-from produtos.models import Produto
 
 register = template.Library()
 
@@ -26,7 +25,7 @@ def total_carrinho_preco(itens, carrinho):
     dict_ord = sorted(carrinho.items())
     dict_car = {k: v for k, v in dict_ord}
     valor_itens = list(itens.values_list('preco', flat=True))
-    
+
     for qnt, valor in zip(dict_car.values(), valor_itens):
         total += qnt*valor
     return total
