@@ -1,0 +1,29 @@
+{% load carrinho %}
+
+<style>
+
+</style>
+<nav class="navbar navbar-custom" style="padding: 10px 80px">
+    <!-- <div class="container-custom">    -->
+        <a href="{% url 'home' %}" class="navbar-brand">Início</a>
+        <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded" action="{% url 'produtos:procurar_produto' %}" method="get">
+            {% csrf_token %}  
+            <input id='input-search' name='pesquisar_produto' class="form-control mr-sm-1" type="text" placeholder="Procurar produtos"></input>
+            <button type="button" class="btn btn-dark">Procurar</button>
+        </form>
+
+        <a class="nav-link" href="{% url 'produtos:ordemview' %}">Carrinho
+            <span class="badge badge-pill badge-dark">{{request.session.carrinho|qnt_total_carrinho}}</span>
+        </a>
+        {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                </li>
+            </ul>
+        {% else %}
+        <button type="button" class="btn btn-dark my-2 my-sm-0" data-toggle="modal" data-target="#exampleModal">Login</button>
+        {% include '_partials/partial_modal.html' %}
+        {% endif %}
+    </div>
+<nav>

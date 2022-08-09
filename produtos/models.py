@@ -3,7 +3,6 @@ from users.models import CustomUser
 from django.urls import reverse
 
 
-
 class Categoria(models.Model):
     nome = models.CharField(max_length=50)
 
@@ -13,62 +12,52 @@ class Categoria(models.Model):
 
 class Produto(models.Model):
     produto_nome = models.CharField(max_length=70)
-    preco = models.IntegerField()
+    preco = models.FloatField()
     quantidade_em_estoque = models.IntegerField()
     quantidade_vendida = models.IntegerField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     descricao = models.TextField(default='', blank=True, null=True)
-    slug = models.SlugField(unique=True, null=False)
+    slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to="products/%Y/%m/%d", blank=True, null=True)
 
     def __str__(self):
         return self.produto_nome
 
-    def existe_produto_estoque(self):
-        if self.quantidade_em_estoque > 0:
-            return True
-        return False
-
-    def produto_vendido(self):
-        if self.existe_produto_estoque():
-            self.quantidade_em_estoque -= 1
-            self.quantidade_vendida += 1
-            return True
-        return False
-
-    def add_ao_carrinho(self):
-        return reverse('produto:carrinho', kwargs={'slug': self.slug})
-
     def get_absolute_url(self):
-        return reverse('produto:produto_detail', kwargs={'slug': self.slug})
-
-
-class OrdemItem(models.Model):
-    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    status = models.BooleanField(default=False)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    quantidade = models.IntegerField(default=1)
-
-    def __str__(self):
-        return f'{self.quantidade} de {self.produto.produto_nome}'
-
-    def get_total_item_preco(self):
-        return self.quantidade * self.produto.preco
+        return reverse('produtos:produto_detail', kwargs={'slug': self.slug})
 
 
 class Ordem(models.Model):
-    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    produtos_itens = models.ManyToManyField(OrdemItem)
-    data_pedido = models.DateField()
-    data_pedido_enviado = models.DateField()
-    status = models.BooleanField(default=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True)
+    data_pedido = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    enviado = models.BooleanField(default=False, null=True, blank=True)
+    transaction_id = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.cliente.username
+        return str(self.id)
     
-    def get_total_preco(self):
-        total = 0
-        for pedido in self.produtos.all():
-            total += pedido.get_total_item_preco()
+    def produtos(self):
+        return list(OrdemItem.objects.filter(ordem__id=self.id))
+
+    @property
+    def get_total_carrinho_preco(self):
+        total = sum([item.get_total_item_preco for item in self.ordemitem_set.all()])
+        return total
+    
+    @property
+    def get_total_itens(self):
+        total = sum([item.quantidade for item in self.ordemitem_set.all()])
         return total
 
+class OrdemItem(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.SET_NULL, blank=True, null=True)
+    ordem = models.ForeignKey(Ordem, on_delete=models.SET_NULL, blank=True, null=True)
+    quantidade = models.IntegerField(default=0, null=True, blank=True)
+    data_add = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.quantidade} unidade de {self.produto.produto_nome}'
+
+    @property
+    def get_total_item_preco(self):
+        return self.quantidade * self.produto.preco

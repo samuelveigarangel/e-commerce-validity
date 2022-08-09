@@ -1,4 +1,3 @@
-from re import I
 from django.views.generic import ListView
 from produtos.models import Produto
 

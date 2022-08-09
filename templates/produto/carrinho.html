@@ -1,1 +1,93 @@
-Ola
+{% extends 'base.html' %}
+{% load carrinho %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
+{% if itens %}
+<div class="card_title">
+    <h4>Meu carrinho</h4>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger" value="True" name="del_carrinho">Limpar carrinho</button>
+    </form>
+</div>
+
+<div class=test>
+{% for produto in itens %}
+    <div class="card_container">           
+        {% if produto.image %}
+            <div class="cart_item_image"><a href="{{produto.get_absolute_url}}"><img src="/media/{{ produto.image}}" alt=""></a></div>
+        {% else %}
+            <div class="cart_item_image"><a href="{{produto.get_absolute_url}}"><img src="{% static '/img/not-found-product.jpg' %}" alt=""></a></div>    
+        {% endif %}
+            <div>
+                <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+                    <div class="cart_item_name cart_info_col">
+                        <div class="cart_item_title">Nome</div>
+                        <div class="cart_item_text"><a href="{{produto.get_absolute_url}}">{{produto.produto_nome}}</a></div>
+                    </div>
+                    <div class="cart_item_quantidade cart_info_col">
+                        <div class="cart_item_title">Quantidade</div>
+                        <div class="cart_item_text">
+                            <form method="post" class="form-quantidade">
+                                {% csrf_token %}
+                                <input type="hidden" type="text" name="id" value="{{ produto.id }}">
+                                <input type="hidden" value="-" name="alt_quantidade">
+                                <button type="submit" class="button-quantidade-esquerda"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                    </svg></button>
+                            </form>
+                            <div class="qnt_itens" style="display: inline-flex;">{{ produto|qnt_itens_carrinho:request.session.carrinho }}</div>
+                            <form method="post" class="form-quantidade">
+                                {% csrf_token %}
+                                <input type="hidden" type="text" name="id" value="{{ produto.id }}">
+                                <input type="hidden" value="+" name="alt_quantidade">
+                                <button type="submit" class="button-quantidade-direita"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg></button>                                      
+                            </form>
+                        </div>
+                    </div>
+                    <div class="cart_item_quantidade cart_info_col">
+                        <div class="cart_item_title">Preco</div>
+                        <div class="cart_item_text">R$ {{produto.preco}}</div>
+                    </div>
+                    <div class="cart_item_quantidade cart_info_col">
+                        <div class="cart_item_title">Total</div>
+                        <div class="cart_item_text">R$ {{produto|total_item_preco:request.session.carrinho}}</div>
+                    </div>
+                    <form method="post" class="form-remove">
+                    {% csrf_token %}
+                        <input type="hidden" type="text" name="id" value="{{ produto.id }}"> 
+                        <button type="submit" class="button-remove" value="rmv" name="alt_quantidade"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg></button>
+                    </form>
+                </div>
+            </div>
+    </div>
+
+{% endfor %}
+</div>
+<div class="order_total">
+    <div class="order_total_content">
+        <div class="order_total_title">Total:</div>
+        <div class="order_total_amount">R$ {{itens|total_carrinho_preco:request.session.carrinho}}</div>
+    </div>
+</div>
+
+
+</div>    
+    {% else %}
+    carrinho vazio
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/carrinho_button_disabled.js'%}"></script>
+{% endblock %}
+
+
