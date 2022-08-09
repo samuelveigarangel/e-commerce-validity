@@ -1,6 +1,6 @@
 def diminui_carrinho(carrinho, produto, quantidade):
     if quantidade != 1:
-        pass
+        carrinho[produto] = quantidade - 1
 
 
 def aumenta_carrinho(carrinho, produto, quantidade):

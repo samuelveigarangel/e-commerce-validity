@@ -17,17 +17,22 @@ def total_item_preco(produto, carrinho):
     for id, qnt in carrinho.items():
         if int(id) == produto.id:
             total += qnt * produto.preco
+    #print(total)
     return total
 
 @register.filter(name='total_carrinho_preco')
 def total_carrinho_preco(itens, carrinho):
-    preco = list()
-    for i in range(len(itens)):
-        preco.append(Produto.objects.values_list('preco', flat=True).get(produto_nome=itens[i]))
+    total = 0
+    print(itens, carrinho)
+    dict_ord = sorted(carrinho.items())
+    dict_car = {k: v for k, v in dict_ord}
+    valor_itens = list(itens.values_list('preco', flat=True))
+    print(dict_car.values())
+    print(valor_itens)
+    for qnt, valor in zip(dict_car.values(), valor_itens):
+        total += qnt*valor
+    return total
     
-    carrrinho_list = list(carrinho.values())
-    return sum([carrrinho_list[i]*preco[i] for i in range(len(itens))])
-
 @register.filter(name='qnt_total_carrinho')
 def qnt_total_carrinho(carrinho):
     return len(carrinho)

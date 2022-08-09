@@ -55,7 +55,7 @@
                     </div>
                     <div class="cart_item_quantidade cart_info_col">
                         <div class="cart_item_title">Total</div>
-                        <div class="cart_item_text">R$ {{produto|total_item_preco:request.session.carrinho}}</div>
+                        <div class="cart_item_text">R$ {{produto|total_item_preco:request.session.carrinho|floatformat:2}}</div>
                     </div>
                     <form method="post" class="form-remove">
                     {% csrf_token %}
