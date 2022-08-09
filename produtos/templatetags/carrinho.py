@@ -23,12 +23,10 @@ def total_item_preco(produto, carrinho):
 @register.filter(name='total_carrinho_preco')
 def total_carrinho_preco(itens, carrinho):
     total = 0
-    print(itens, carrinho)
     dict_ord = sorted(carrinho.items())
     dict_car = {k: v for k, v in dict_ord}
     valor_itens = list(itens.values_list('preco', flat=True))
-    print(dict_car.values())
-    print(valor_itens)
+    
     for qnt, valor in zip(dict_car.values(), valor_itens):
         total += qnt*valor
     return total
