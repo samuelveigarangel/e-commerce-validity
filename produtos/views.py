@@ -1,11 +1,16 @@
-from django.shortcuts import redirect, render, redirect, get_object_or_404
+from django.shortcuts import redirect, render, redirect
 from django.views.generic import ListView, DetailView, View
 from .models import Produto, OrdemItem, Ordem
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.sessions.models import Session
 
 from .func_op_carrinho import carrinho_acoes
 # Create your views here.
+
+class HomeView(ListView):
+    model = Produto
+    context_object_name = 'produtos'
+    template_name = 'home.html'
+
 
 class ProcurarProdutosList(ListView):
     model = Produto

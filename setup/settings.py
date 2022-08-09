@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     #Meus apps
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
-    'pages.apps.PagesConfig',
     'produtos.apps.ProdutosConfig',
 ]
 
