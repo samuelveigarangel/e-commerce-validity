@@ -18,10 +18,10 @@
     <div class="col">
         <h1>{{ produto.produto_nome }}</h1>
         <hr>       
-        <h2>R${{ produto.preco|floatformat:2 }}</h2>
+        <h2>R$ {{ produto.preco|floatformat:2 }}</h2>
         <div class="detalhes">
             <p class="p-nome-detalhes">Descrição</p>
-            <p class='p-text-detalhes'>{{produto.descricao}} asdasdasd sadasd asd asd aas d asdasdasdasdasdasa s asdasd asd sads </p>
+            <p class='p-text-detalhes'>{{produto.descricao}}</p>
         </div>
         <hr>
         
