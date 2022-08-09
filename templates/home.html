@@ -3,7 +3,11 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content%}
-
+<style>
+#link {
+    text-decoration-color: rgb(178, 34, 34);
+}
+</style>
 <link rel="stylesheet" href="{% static 'css/produto_home.css' %}">
 
 <h1>Hello, {{ user.username|default:'Guest' }}</h1>
@@ -18,7 +22,7 @@
         <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
       {%endif%}</a>
       <div class="detalhe-produto">
-        <p class="nome-produto">{{produto.produto_nome}}</p>
+        <a id="link" href="{{ produto.get_absolute_url }}"><p class="nome-produto">{{produto.produto_nome}}</p></a>
         <p class='descricao-produto'>{{produto.descricao}}</p>
         <p class="preco-produto">R$: {{produto.preco|floatformat:2}}</p>
       
