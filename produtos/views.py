@@ -1,9 +1,12 @@
+from ast import Or
 from django.shortcuts import redirect, render, redirect
 from django.views.generic import ListView, DetailView, View
 from .models import Produto, OrdemItem, Ordem
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .func_op_carrinho import carrinho_acoes
+from .random_number import random_number
 # Create your views here.
 
 class HomeView(ListView):
@@ -57,8 +60,6 @@ class ProdutosDetail(DetailView):
 
 
 class OrdemView(View):
-    model = Produto
-    template_name = 'produto/carrinho.html'
 
     def get(self, request):
         try:
@@ -94,8 +95,39 @@ class OrdemView(View):
             carrinho[produto] = 1
         
         request.session['carrinho'] = carrinho
-         
+       
 
         return redirect('produtos:ordemview')
 
-    
+class CheckoutView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        # print(request.session.get('carrinho'))
+        try:
+            product = Produto.objects.filter(id__in=list(request.session.get('carrinho').keys()))
+            
+            dict_ord = sorted(request.session['carrinho'].items())
+            dict_car = {k: v for k, v in dict_ord}
+        
+            order, created = Ordem.objects.get_or_create(user=request.user, enviado=False)
+            itens = []
+            
+            for prod, qnt in zip(product, dict_car.values()):
+                order_item, created = OrdemItem.objects.get_or_create(produto=prod, ordem=order, quantidade=qnt)
+                itens.append(order_item)
+            
+            del request.session['carrinho']
+            
+            order.enviado = True
+            order.save()
+
+            context = {
+                'itens': itens
+            }
+
+            return render(request, 'produto/checkout.html', context)
+        except ObjectDoesNotExist:
+            return redirect('produtos:home')
+        except Exception as e:
+            print(e)
+            return redirect('produtos:home')

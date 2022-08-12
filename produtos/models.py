@@ -1,7 +1,8 @@
+import imp
 from django.db import models
 from users.models import CustomUser
 from django.urls import reverse
-
+from .random_number import random_number
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50)
@@ -31,10 +32,10 @@ class Ordem(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True)
     data_pedido = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     enviado = models.BooleanField(default=False, null=True, blank=True)
-    transaction_id = models.CharField(max_length=200, null=True)
+    number_order = models.CharField(max_length=14, default=random_number, unique=True)
 
     def __str__(self):
-        return str(self.id)
+        return f'{str(self.number_order)} - {self.user} - {self.enviado}'
     
     def produtos(self):
         return list(OrdemItem.objects.filter(ordem__id=self.id))
@@ -49,11 +50,13 @@ class Ordem(models.Model):
         total = sum([item.quantidade for item in self.ordemitem_set.all()])
         return total
 
+
 class OrdemItem(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.SET_NULL, blank=True, null=True)
     ordem = models.ForeignKey(Ordem, on_delete=models.SET_NULL, blank=True, null=True)
     quantidade = models.IntegerField(default=0, null=True, blank=True)
     data_add = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
 
     def __str__(self):
         return f'{self.quantidade} unidade de {self.produto.produto_nome}'

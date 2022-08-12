@@ -74,16 +74,17 @@
 <div class="order_total">
     <div class="order_total_content">
         <div class="order_total_title">Total:</div>
-        <div class="order_total_amount">R$ {{itens|total_carrinho_preco:request.session.carrinho}}</div>
+        <div class="order_total_amount">R$ {{itens|total_carrinho_preco:request.session.carrinho|floatformat:2}}</div>
     </div>
 </div>
 
+<a href="{% url 'produtos:finalizar' %}"><button class="btn btn-outline-danger" style="float: right;">Finalizar</button></a>   
 
 </div>    
     {% else %}
     carrinho vazio
     {% endif %}
-
+    
 {% endblock %}
 
 {% block scripts %}
