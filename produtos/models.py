@@ -12,17 +12,17 @@ class Categoria(models.Model):
 
 
 class Produto(models.Model):
-    produto_nome = models.CharField(max_length=70)
-    preco = models.FloatField()
-    quantidade_em_estoque = models.IntegerField()
-    quantidade_vendida = models.IntegerField()
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    descricao = models.TextField(default='', blank=True, null=True)
+    name = models.CharField(max_length=70)
+    price = models.FloatField()
+    qnt_stock = models.IntegerField()
+    sold = models.IntegerField()
+    category = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    description = models.TextField(default='', blank=True, null=True)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to="products/%Y/%m/%d", blank=True, null=True)
 
     def __str__(self):
-        return self.produto_nome
+        return self.name
 
     def get_absolute_url(self):
         return reverse('produtos:produto_detail', kwargs={'slug': self.slug})
@@ -30,15 +30,15 @@ class Produto(models.Model):
 
 class Ordem(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True)
-    data_pedido = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    enviado = models.BooleanField(default=False, null=True, blank=True)
+    order_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    ordered = models.BooleanField(default=False, null=True, blank=True)
     number_order = models.CharField(max_length=14, default=random_number, unique=True)
 
     def __str__(self):
-        return f'{str(self.number_order)} - {self.user} - {self.enviado}'
+        return f'{str(self.number_order)} - {self.user} - {self.ordered}'
     
     def produtos(self):
-        return list(OrdemItem.objects.filter(ordem__id=self.id))
+        return list(OrdemItem.objects.filter(order__id=self.id))
 
     @property
     def get_total_carrinho_preco(self):
@@ -47,20 +47,20 @@ class Ordem(models.Model):
     
     @property
     def get_total_itens(self):
-        total = sum([item.quantidade for item in self.ordemitem_set.all()])
+        total = sum([item.quantity for item in self.ordemitem_set.all()])
         return total
 
 
 class OrdemItem(models.Model):
-    produto = models.ForeignKey(Produto, on_delete=models.SET_NULL, blank=True, null=True)
-    ordem = models.ForeignKey(Ordem, on_delete=models.SET_NULL, blank=True, null=True)
-    quantidade = models.IntegerField(default=0, null=True, blank=True)
+    product = models.ForeignKey(Produto, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(Ordem, on_delete=models.SET_NULL, blank=True, null=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
     data_add = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 
     def __str__(self):
-        return f'{self.quantidade} unidade de {self.produto.produto_nome}'
+        return f'{self.quantity} unidade de {self.product.name}'
 
     @property
     def get_total_item_preco(self):
-        return self.quantidade * self.produto.preco
+        return self.quantity * self.product.price

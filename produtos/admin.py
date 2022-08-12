@@ -3,8 +3,8 @@ from .models import Categoria, Produto, Ordem, OrdemItem
 
 
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'produto_nome', 'preco', 'quantidade_vendida', 'quantidade_em_estoque')
-    prepopulated_fields = {'slug': ("produto_nome",)}
+    list_display = ('id', 'name', 'price', 'sold', 'qnt_stock')
+    prepopulated_fields = {'slug': ("name",)}
 
 
 class OrdemAdmin(admin.ModelAdmin):
@@ -13,8 +13,8 @@ class OrdemAdmin(admin.ModelAdmin):
         'user', 
         'number_order',
         'produtos',
-        'enviado',
-        'data_pedido',
+        'ordered',
+        'order_date',
         )
     list_display_links = ('id', 'number_order',)
 

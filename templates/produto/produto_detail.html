@@ -16,12 +16,12 @@
         {%endif%}
     </div>
     <div class="col">
-        <h1>{{ produto.produto_nome }}</h1>
+        <h1>{{ produto.name }}</h1>
         <hr>       
-        <h2>R$ {{ produto.preco|floatformat:2 }}</h2>
+        <h2>R$ {{ produto.price|floatformat:2 }}</h2>
         <div class="detalhes">
             <p class="p-nome-detalhes">Descrição</p>
-            <p class='p-text-detalhes'>{{produto.descricao}}</p>
+            <p class='p-text-detalhes'>{{produto.description}}</p>
         </div>
         <hr>
         

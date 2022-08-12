@@ -1,24 +1,24 @@
-def diminui_carrinho(carrinho, produto, quantidade):
-    if quantidade != 1:
-        carrinho[produto] = quantidade - 1
+def diminui_carrinho(cart, product, quantity):
+    if quantity != 1:
+        cart[product] = quantity - 1
 
 
-def aumenta_carrinho(carrinho, produto, quantidade):
-    carrinho[produto] = quantidade + 1
+def aumenta_carrinho(cart, product, quantity):
+    cart[product] = quantity + 1
 
 
 def remove_carrinho(*args):
     del args[0][args[1]]
-    # del carrinho[produto]
+    # del cart[product]
 
 
-def carrinho_acoes(carrinho, produto, quantidade, op):
+def carrinho_acoes(cart, product, quantity, op):
     acoes = {
         '-': diminui_carrinho,
         '+': aumenta_carrinho,
         'rmv': remove_carrinho
     }
     try:
-        return acoes[str(op)](carrinho, produto, quantidade)
+        return acoes[str(op)](cart, product, quantity)
     except KeyError:
         print('Key invalido')

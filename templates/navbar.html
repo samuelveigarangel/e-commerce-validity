@@ -6,10 +6,10 @@
 <nav class="navbar navbar-custom" style="padding: 10px 80px">
     <!-- <div class="container-custom">    -->
         <a href="{% url 'produtos:home' %}" class="navbar-brand">Início</a>
-        <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded" action="{% url 'produtos:procurar_produto' %}" method="get">
-            {% csrf_token %}  
-            <input id='input-search' name='pesquisar_produto' class="form-control mr-sm-1" type="text" placeholder="Procurar produtos"></input>
-            <button type="button" class="btn btn-dark">Procurar</button>
+        <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded" action="{% url 'produtos:procurar_produto' %}" method="GET">
+            {% csrf_token %}
+            <input id='input-search' name='search' class="form-control mr-sm-1" type="text" placeholder="Procurar produtos"></input>
+            <button type="submit" class="btn btn-dark">Procurar</button>
         </form>
 
         <a class="nav-link" href="{% url 'produtos:ordemview' %}">Carrinho

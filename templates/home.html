@@ -14,7 +14,7 @@
 
 <p> Welcome to the Our site</p>
   
-  {% for produto in produtos %}
+  {% for produto in products %}
     <div class="div-produto">
       <a href="{{ produto.get_absolute_url }}">{%if produto.image %}
         <img class="img-produto" src='/media/{{produto.image}}'>
@@ -22,9 +22,9 @@
         <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
       {%endif%}</a>
       <div class="detalhe-produto">
-        <a id="link" href="{{ produto.get_absolute_url }}"><p class="nome-produto">{{produto.produto_nome}}</p></a>
-        <p class='descricao-produto'>{{produto.descricao}}</p>
-        <p class="preco-produto">R$: {{produto.preco|floatformat:2}}</p>
+        <a id="link" href="{{ produto.get_absolute_url }}"><p class="nome-produto">{{produto.name}}</p></a>
+        <p class='descricao-produto'>{{produto.description}}</p>
+        <p class="preco-produto">R$: {{produto.price|floatformat:2}}</p>
       
       </div>
     </div>

@@ -1,4 +1,4 @@
-from ast import Or
+
 from django.shortcuts import redirect, render, redirect
 from django.views.generic import ListView, DetailView, View
 from .models import Produto, OrdemItem, Ordem
@@ -6,31 +6,29 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .func_op_carrinho import carrinho_acoes
-from .random_number import random_number
+
 # Create your views here.
 
 class HomeView(ListView):
     model = Produto
-    context_object_name = 'produtos'
+    context_object_name = 'products'
     template_name = 'home.html'
 
 
 class ProcurarProdutosList(ListView):
     model = Produto
     template_name = 'home.html'
-    context_object_name = 'produtos'
+    context_object_name = 'products'
     paginate_by = 10
 
     def get_queryset(self):
-        txt_pesquisa = self.request.GET.get('pesquisar_produto')
-
-        if txt_pesquisa:
-            produto = Produto.objects.filter(produto_nome__icontains=txt_pesquisa.strip()).order_by('produto_nome')
-        else:
-            produto = Produto.objects.none()
         
-        return produto
-    
+        query = self.request.GET.get('search')
+        if query is not None:
+            return Produto.objects.filter(name__icontains=query.strip()).order_by('name')
+        else:
+            return Produto.objects.none()
+        
 
 class ProdutosDetail(DetailView):
     model = Produto
@@ -40,21 +38,21 @@ class ProdutosDetail(DetailView):
 
 
     def post(self, request, *args, **kwargs):
-        produto = str(self.get_object().id)
-        carrinho = request.session.get('carrinho')
+        product = str(self.get_object().id)
+        cart = request.session.get('cart')
 
-        if carrinho:
-            quantidade = carrinho.get(produto)
-            if quantidade:
-                carrinho[produto] = quantidade + 1  
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                cart[product] = quantity + 1  
             else:
-                carrinho[produto] = 1
+                cart[product] = 1
         else:
-            carrinho = {}
-            carrinho[produto] = 1
+            cart = {}
+            cart[product] = 1
 
 
-        request.session['carrinho'] = carrinho
+        request.session['cart'] = cart
         
         return redirect('produtos:ordemview')
 
@@ -63,9 +61,9 @@ class OrdemView(View):
 
     def get(self, request):
         try:
-            produto = Produto.objects.filter(id__in=list(request.session.get('carrinho').keys()))                       
+            product = Produto.objects.filter(id__in=list(request.session.get('cart').keys()))                       
             context = {
-                'itens': produto
+                'itens': product
             }
             return render(request, 'produto/carrinho.html', context)
         except ObjectDoesNotExist:
@@ -75,50 +73,51 @@ class OrdemView(View):
 
 
     def post(self, request):
-        produto = request.POST.get('id')
-        carrinho = request.session.get('carrinho')
-        op_quantidade = request.POST.get('alt_quantidade')
+        product = request.POST.get('id')
+        cart = request.session.get('cart')
+        op_quantity = request.POST.get('alt_quantidade')
         del_car = request.POST.get('del_carrinho')
 
         if del_car:
-            del request.session['carrinho']
+            del request.session['cart']
             return redirect('produtos:ordemview') 
 
-        if carrinho:
-            quantidade = carrinho.get(produto)
-            if quantidade:
-                carrinho_acoes(carrinho, produto, quantidade, op_quantidade)
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                carrinho_acoes(cart, product, quantity, op_quantity)
             else:
-                carrinho[produto] = 1
+                cart[product] = 1
         else:
-            carrinho = {}
-            carrinho[produto] = 1
+            cart = {}
+            cart[product] = 1
         
-        request.session['carrinho'] = carrinho
+        request.session['cart'] = cart
        
 
         return redirect('produtos:ordemview')
 
+
 class CheckoutView(LoginRequiredMixin, View):
 
     def get(self, request):
-        # print(request.session.get('carrinho'))
+        # print(request.session.get('cart'))
         try:
-            product = Produto.objects.filter(id__in=list(request.session.get('carrinho').keys()))
+            product = Produto.objects.filter(id__in=list(request.session.get('cart').keys()))
             
-            dict_ord = sorted(request.session['carrinho'].items())
+            dict_ord = sorted(request.session['cart'].items())
             dict_car = {k: v for k, v in dict_ord}
         
-            order, created = Ordem.objects.get_or_create(user=request.user, enviado=False)
+            order, created = Ordem.objects.get_or_create(user=request.user, ordered=False)
             itens = []
             
             for prod, qnt in zip(product, dict_car.values()):
-                order_item, created = OrdemItem.objects.get_or_create(produto=prod, ordem=order, quantidade=qnt)
+                order_item, created = OrdemItem.objects.get_or_create(product=prod, order=order, quantity=qnt)
                 itens.append(order_item)
             
-            del request.session['carrinho']
+            del request.session['cart']
             
-            order.enviado = True
+            order.ordered = True
             order.save()
 
             context = {

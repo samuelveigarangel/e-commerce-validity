@@ -25,7 +25,7 @@
                 <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                     <div class="cart_item_name cart_info_col">
                         <div class="cart_item_title">Nome</div>
-                        <div class="cart_item_text"><a href="{{produto.get_absolute_url}}">{{produto.produto_nome}}</a></div>
+                        <div class="cart_item_text"><a href="{{produto.get_absolute_url}}">{{produto.name}}</a></div>
                     </div>
                     <div class="cart_item_quantidade cart_info_col">
                         <div class="cart_item_title">Quantidade</div>
@@ -38,7 +38,7 @@
                                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                                     </svg></button>
                             </form>
-                            <div class="qnt_itens" style="display: inline-flex;">{{ produto|qnt_itens_carrinho:request.session.carrinho }}</div>
+                            <div class="qnt_itens" style="display: inline-flex;">{{ produto|qnt_itens_carrinho:request.session.cart }}</div>
                             <form method="post" class="form-quantidade">
                                 {% csrf_token %}
                                 <input type="hidden" type="text" name="id" value="{{ produto.id }}">
@@ -51,11 +51,11 @@
                     </div>
                     <div class="cart_item_quantidade cart_info_col">
                         <div class="cart_item_title">Preco</div>
-                        <div class="cart_item_text">R$ {{produto.preco}}</div>
+                        <div class="cart_item_text">R$ {{produto.price}}</div>
                     </div>
                     <div class="cart_item_quantidade cart_info_col">
                         <div class="cart_item_title">Total</div>
-                        <div class="cart_item_text">R$ {{produto|total_item_preco:request.session.carrinho|floatformat:2}}</div>
+                        <div class="cart_item_text">R$ {{produto|total_item_preco:request.session.cart|floatformat:2}}</div>
                     </div>
                     <form method="post" class="form-remove">
                     {% csrf_token %}
@@ -74,7 +74,7 @@
 <div class="order_total">
     <div class="order_total_content">
         <div class="order_total_title">Total:</div>
-        <div class="order_total_amount">R$ {{itens|total_carrinho_preco:request.session.carrinho|floatformat:2}}</div>
+        <div class="order_total_amount">R$ {{itens|total_carrinho_preco:request.session.cart|floatformat:2}}</div>
     </div>
 </div>
 
