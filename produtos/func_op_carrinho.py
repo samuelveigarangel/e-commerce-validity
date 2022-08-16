@@ -2,15 +2,12 @@ def diminui_carrinho(cart, product, quantity):
     if quantity != 1:
         cart[product] = quantity - 1
 
-
 def aumenta_carrinho(cart, product, quantity):
     cart[product] = quantity + 1
-
 
 def remove_carrinho(*args):
     del args[0][args[1]]
     # del cart[product]
-
 
 def carrinho_acoes(cart, product, quantity, op):
     acoes = {

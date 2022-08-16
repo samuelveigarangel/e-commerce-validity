@@ -13,7 +13,7 @@
         </form>
 
         <a class="nav-link" href="{% url 'produtos:ordemview' %}">Carrinho
-            <span class="badge badge-pill badge-dark">{{request.session.carrinho|qnt_total_carrinho}}</span>
+            <span class="badge badge-pill badge-dark">{{request.session.cart|qnt_total_carrinho}}</span>
         </a>
         {% if user.is_authenticated %}
             <ul class="navbar-nav">

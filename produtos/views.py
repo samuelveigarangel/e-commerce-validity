@@ -75,7 +75,7 @@ class OrdemView(View):
     def post(self, request):
         product = request.POST.get('id')
         cart = request.session.get('cart')
-        op_quantity = request.POST.get('alt_quantidade')
+        op_quantity = request.POST.get('op_cart')
         del_car = request.POST.get('del_carrinho')
 
         if del_car:
