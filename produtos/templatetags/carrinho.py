@@ -32,5 +32,4 @@ def total_carrinho_preco(itens, cart):
     
 @register.filter(name='qnt_total_carrinho')
 def qnt_total_carrinho(cart):
-    print(cart)
     return len(cart)
