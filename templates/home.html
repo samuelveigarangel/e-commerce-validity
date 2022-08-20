@@ -3,16 +3,10 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content%}
-<style>
-#link {
-    text-decoration-color: rgb(178, 34, 34);
-}
-</style>
+
 <link rel="stylesheet" href="{% static 'css/produto_home.css' %}">
 
 <h1>Hello, {{ user.username|default:'Guest' }}</h1>
-
-
 
 
 {% for produto in products %}
@@ -30,7 +24,7 @@
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>  -->
-      <div class="div-produto">
+  <div class="div-produto">
     <a href="{{ produto.get_absolute_url }}">{%if produto.image %}
       <img class="img-produto" src='/media/{{produto.image}}'>
     {% else%}
@@ -43,14 +37,7 @@
     
     </div>
   </div>
-
-
 {% endfor %}
-
-</div>
-
-
-
 {% if not user.is_authenticated %}
   <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}

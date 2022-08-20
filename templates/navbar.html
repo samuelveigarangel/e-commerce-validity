@@ -1,29 +1,43 @@
 {% load carrinho %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
-<style>
-
-</style>
-<nav class="navbar navbar-custom" style="padding: 10px 80px">
-    <!-- <div class="container-custom">    -->
-        <a href="{% url 'produtos:home' %}" class="navbar-brand">Início</a>
-        <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded" action="{% url 'produtos:procurar_produto' %}" method="GET">
+<nav class="navbar">
+    <div class="container">    
+        <ul class="menu">
+            <li class="menuItem"><a  href="{% url 'produtos:home' %}">Início</a></li>
+            <li class="menuItem"><a  href="#">Categorias</a></li>
+        </ul>
+        <form class="form-search" action="{% url 'produtos:procurar_produto' %}" method="GET">
             {% csrf_token %}
-            <input id='input-search' name='search' class="form-control mr-sm-1" type="text" placeholder="Procurar produtos"></input>
-            <button type="submit" class="btn btn-dark">Procurar</button>
+            <input class='input-search' name='search' class="" type="text" placeholder="Procurar produtos"></input>
+            <button type="submit" class="search-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg></button>
         </form>
-
-        <a class="nav-link" href="{% url 'produtos:ordemview' %}">Carrinho
-            <span class="badge badge-pill badge-dark">{{request.session.cart|qnt_total_carrinho}}</span>
-        </a>
+        <a class="carrinho" href="{% url 'produtos:ordemview' %}"> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+              </svg>
+            <span class="text-carrinho">{{request.session.cart|qnt_total_carrinho}} Produtos</span>
+        </a>           
+        
         {% if user.is_authenticated %}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-                </li>
-            </ul>
+            <a class="" href="{% url 'logout' %}">Sair</a>
         {% else %}
-        <button type="button" class="btn btn-dark my-2 my-sm-0" data-toggle="modal" data-target="#exampleModal">Login</button>
+        <button type="button" class="button-login" data-toggle="modal" data-target="#exampleModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+            Entrar
+        </button>
         {% include '_partials/partial_modal.html' %}
         {% endif %}
+        
     </div>
-<nav>
+</nav>
+
+
+

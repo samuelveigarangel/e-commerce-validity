@@ -76,7 +76,7 @@ class OrdemView(View):
         product = request.POST.get('id')
         cart = request.session.get('cart')
         op_quantity = request.POST.get('op_cart')
-        del_car = request.POST.get('del_carrinho')
+        del_car = request.POST.get('del_cart')
 
         if del_car:
             del request.session['cart']

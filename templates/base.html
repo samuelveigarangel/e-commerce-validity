@@ -10,17 +10,17 @@
         <!-- CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
 
 </head>
 <body>
     <main>
-        <header>
+        <header style="box-shadow: rgb(236 236 236) 0px -1px 0px inset;">
             {% include 'navbar.html' %}
         </header>
-        <div class="container-custom">
+        <div class="container">
             <!--{% include 'message/messages.html' %}-->
             {% block content %}
             {% endblock %}

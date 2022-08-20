@@ -1,0 +1,103 @@
+*{
+    font-family: "Hind Madurai", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
+}
+.navbar{
+    background-color: white;
+    width: 100%;
+    height: 80px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 0px;
+}
+
+.menuItem a:hover, .menuItem a {
+    color: black
+}
+.menuItem a:link {
+    text-decoration: none;
+}
+button:focus{outline:none !important;}
+.menu{
+    display: inline-flex;
+    margin: 0px;
+    padding: 0;
+}
+
+.menuItem{
+    font-weight: bold;
+    list-style: none;
+    padding: 11px 1px;
+    /* display: flex; */
+}
+.menuItem a{
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    padding: 12px 26px;
+}
+.menuItem:hover{
+    background-color: rgb(246, 243, 234);
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;    
+    transition: background-color 200ms ease-in 0s;
+}
+
+.button-login{
+    padding: 12px 26px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    border: none;
+    background-color: transparent;
+}
+
+.button-login:hover{
+    background-color: rgb(246, 243, 234);
+    transition: background-color 200ms ease-in 0s;
+}
+.button-login svg{
+    margin: 0 3px 2px 0;
+}
+.input-search{
+    width: 400px;
+    height: 24px;
+    border-radius: 30px;
+    padding: 20px;
+    border: none;
+    outline: none;
+    background-color: #F0F0F0;
+    background-color: rgb(246, 243, 234);
+}
+.input-search::placeholder{
+    text-align: center;
+}
+.form-search{
+    display:flex;
+    flex-direction: row;
+}
+.search-button{
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: -33px;
+    margin-bottom: 4px;
+}
+.search-button svg{
+    object-fit: cover;
+}
+.carrinho{
+    background-color: rgb(12, 127, 57);
+    padding: 12px 26px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    color: white;
+}
+.carrinho:hover{
+    color: white;
+    background-color: rgb(3, 97, 52);
+}
+
+.carrinho svg{
+    color: white;
+    margin-bottom: 3px;
+}

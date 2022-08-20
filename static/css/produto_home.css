@@ -37,3 +37,6 @@ p{
 .descricao-produto{
   text-align: center;
 }
+#link {
+  text-decoration-color: rgb(178, 34, 34);
+}
