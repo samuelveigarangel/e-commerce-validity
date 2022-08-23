@@ -1,11 +1,10 @@
-*{
-    font-family: "Hind Madurai", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
-}
 .navbar{
     background-color: white;
+    display: flex;
     width: 100%;
     height: 80px;
     box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 0px;
+    justify-content: space-around !important;
 }
 
 .menuItem a:hover, .menuItem a {
@@ -16,22 +15,22 @@
 }
 button:focus{outline:none !important;}
 .menu{
-    display: inline-flex;
-    margin: 0px;
-    padding: 0;
+    margin: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
 }
 
 .menuItem{
     font-weight: bold;
-    list-style: none;
     padding: 11px 1px;
-    /* display: flex; */
 }
 .menuItem a{
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     border-radius: 30px;
     padding: 12px 26px;
+
 }
 .menuItem:hover{
     background-color: rgb(246, 243, 234);
@@ -64,7 +63,6 @@ button:focus{outline:none !important;}
     padding: 20px;
     border: none;
     outline: none;
-    background-color: #F0F0F0;
     background-color: rgb(246, 243, 234);
 }
 .input-search::placeholder{
@@ -73,13 +71,15 @@ button:focus{outline:none !important;}
 .form-search{
     display:flex;
     flex-direction: row;
+    min-width: 18% !important;
 }
 .search-button{
     background: transparent;
     border: none;
     outline: none;
     margin-left: -33px;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    color: rgb(12, 127, 57);
 }
 .search-button svg{
     object-fit: cover;
@@ -100,4 +100,114 @@ button:focus{outline:none !important;}
 .carrinho svg{
     color: white;
     margin-bottom: 3px;
+}
+.mobile-menu div{
+    width: 26px;
+    height: 1px;
+    background: black;
+    margin: 6px;
+}
+.mobile-menu{
+    display: none;
+    cursor: pointer;
+}
+.search-icon,
+.cancel-icon{
+    display: none;
+}
+
+@media (max-width: 970px){
+    body{
+        overflow-x: hidden;
+    }
+    .menu{
+        position: absolute;
+        top: 80px;
+        left: 0;
+        background: rgb(246, 243, 234);
+        width: 50vw;
+        height: 92vh;
+        flex-direction: column;
+        align-items: center;
+        z-index: 99;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in;
+    }
+    .menuItem{
+        margin-left: 0;
+        margin: 10px 0;
+        opacity: 0;
+    }
+    .mobile-menu {
+        display: block;
+    }
+    .form-search{
+        position: absolute;
+        top: 100px;
+        /* left: 0; */
+        left: 50%; /* position the left edge of the element at the middle of the parent */
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none;
+
+        /* width: 100vh; */
+        transition: top 0.3s ease, opacity 0.1s ease;
+        /* width: 100%; */
+    }
+    .form-search.active{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .search-icon{
+        display: block;
+    }
+    .cancel-icon.show{
+        display: block;
+    }
+    .search-icon.hide{
+        display: none;
+    }
+    .carrinho{
+        padding: 10px 20px;
+    }
+}
+
+
+.menu.active{
+    transform: translateX(0);
+}
+
+@keyframes menuItemFade{
+    from{
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.mobile-menu.active .line1 {
+  transform: rotate(-45deg) translate(-3px, 7px);
+}
+
+.mobile-menu.active .line2 {
+  opacity: 0;
+}
+
+.mobile-menu.active .line3 {
+  transform: rotate(45deg) translate(-3px, -7px);
+}
+
+@media (max-width: 420px){
+    .input-search{
+        width: 300px;
+    }
+}
+
+@media (max-width: 310px){
+    .input-search{
+        width: 200px;
+    }
 }

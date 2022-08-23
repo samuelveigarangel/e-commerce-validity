@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+img{
+    width: 100%;
+}
+
+
+/* .hover_img{
+    transition: transform .5s ease;
+    }
+.hover_img:hover{
+    transform: scale(1.05);
+} */

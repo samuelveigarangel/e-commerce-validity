@@ -1,35 +1,11 @@
-/* .navbar-custom{
-    background-color: rgb(178, 34, 34);
-
-}
-.navbar-custom .navbar-brand,
-.navbar-custom .navbar-text {
-    color: black;
-}
-.nav-link{
-    color: black;
-}
-.nav-link:hover{
-    color: black;
-} */
-#input-search{
-    width: 500px;
-}
-/* body {
-    font-family: 'Roboto-thin', sans-serif;
-    src: url('{% static "fonts/Roboto-thin.ttf" %} format("truetype")');
-} */
 body{
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Hind Madurai', sans-serif;
     font-size: 14px;
     font-weight: 400;
     background: white;
+    overflow-x: hidden;
 }
-.navbar-custom, navbar-brand{
-    font-family: 'Rubik', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-}
+
 .container-custom{
     margin: 0 230px;
 }
