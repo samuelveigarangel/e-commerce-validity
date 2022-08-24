@@ -6,14 +6,33 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .func_op_carrinho import carrinho_acoes
-
 # Create your views here.
 
 class HomeView(ListView):
     model = Produto
     context_object_name = 'products'
     template_name = 'home.html'
+    
+    def post(self, request, *args, **kwargs):
+        product = request.POST.get('id')
+        cart = request.session.get('cart')
+        print('entrou')
 
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                cart[product] = quantity + 1  
+            else:
+                cart[product] = 1
+        else:
+            cart = {}
+            cart[product] = 1
+
+
+        request.session['cart'] = cart
+        
+        return redirect('produtos:ordemview')
+    
 
 class ProcurarProdutosList(ListView):
     model = Produto
@@ -33,7 +52,7 @@ class ProcurarProdutosList(ListView):
 class ProdutosDetail(DetailView):
     model = Produto
     template_name = 'produto/produto_detail.html'
-    context_object_name = 'produto'
+    context_object_name = 'product'
 
 
 
@@ -114,11 +133,10 @@ class CheckoutView(LoginRequiredMixin, View):
             for prod, qnt in zip(product, dict_car.values()):
                 order_item, created = OrdemItem.objects.get_or_create(product=prod, order=order, quantity=qnt)
                 itens.append(order_item)
-            
-            del request.session['cart']
-            
+                        
             order.ordered = True
             order.save()
+            del request.session['cart']
 
             context = {
                 'itens': itens

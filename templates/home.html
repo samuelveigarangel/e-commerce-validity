@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Inicio{% endblock %}
-
+{% load conversao_moeda %}
 {% block content%}
 
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -9,26 +9,40 @@
 <h1>Hello, {{ user.username|default:'Guest' }}</h1>
 
 <div class="row">
-        {% for product in products %}
-        <div class="col-lg-3">
-          <div class="card mb-4 border rounded">
-            <a href="{{ product.get_absolute_url }}">
-            {%if product.image %}
-              <img class="img-produto" src='/media/{{product.image}}' class="card-img-top hover_img ">
-            {% else%}
-              <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}" class="card-img-top hover_img">
-            {%endif%}
-            </a>
-          
-          <div class="card-body">
-            <p class="card-title">{{product.name}}</p>
-            <p class="card-text"><i class='fas fa-dollar-sign' style="margin-right:2px"></i>{{product.price}}</p>
-          </div>
-          
-          </div>
-        </div>
+  {% for product in products %}
+  <div class="produto">
+    <div class="produto-img-descric">
+      <a href="{{product.get_absolute_url}}" class="produto-link">
+        {%if product.image %}
+        <img class="img-produto" src='/media/{{product.image}}' class="card-img-top hover_img ">
+        {% else%}
+          <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}" class="card-img-top hover_img">
+        {%endif%}
+      </a>
 
-        {% endfor %}
+    </div>
+    <div class="produto-body">
+      <div class="descricao-produto">
+        <p>{{product.description}}</p>
+      </div>
+
+      <div class="produto-prec">
+        <div>
+          <p>{{product.price|conversao}}</p>
+        </div>
+        <div class="btn-add">
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{product.id}}" name="id">
+            <button type="submit">Adicionar</button>
+          </form>
+          <button class="btn-timer">CountDown</button>
+        </div>
+      </div>
+    </div>
+  </div>
+          
+  {% endfor %}
 </div>
 
 

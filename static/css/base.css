@@ -1,7 +1,6 @@
 body{
     font-family: 'Hind Madurai', sans-serif;
     font-size: 14px;
-    font-weight: 400;
     background: white;
     overflow-x: hidden;
 }
@@ -12,6 +11,6 @@ body{
 
 @media (min-width: 900px){
     .container{
-        max-width: 1100px;
+        max-width: 1200px;
     }
 }

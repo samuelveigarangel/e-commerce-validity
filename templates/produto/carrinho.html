@@ -2,6 +2,7 @@
 {% load carrinho %}
 {% load static %}
 {% block content %}
+{% load conversao_moeda%}
 
 <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
 {% if itens %}
@@ -51,11 +52,11 @@
                     </div>
                     <div class="cart_item_quantidade cart_info_col">
                         <div class="cart_item_title">Preco</div>
-                        <div class="cart_item_text">R$ {{produto.price}}</div>
+                        <div class="cart_item_text">{{produto.price|conversao}}</div>
                     </div>
                     <div class="cart_item_quantidade cart_info_col">
                         <div class="cart_item_title">Total</div>
-                        <div class="cart_item_text">R$ {{produto|total_item_preco:request.session.cart|floatformat:2}}</div>
+                        <div class="cart_item_text">{{produto|total_item_preco:request.session.cart|conversao}}</div>
                     </div>
                     <form method="post" class="form-remove">
                     {% csrf_token %}
@@ -74,16 +75,16 @@
 <div class="order_total">
     <div class="order_total_content">
         <div class="order_total_title">Total:</div>
-        <div class="order_total_amount">R$ {{itens|total_carrinho_preco:request.session.cart|floatformat:2}}</div>
+        <div class="order_total_amount">{{itens|total_carrinho_preco:request.session.cart|conversao}}</div>
     </div>
 </div>
 
 <a href="{% url 'produtos:finalizar' %}"><button class="btn btn-outline-danger" style="float: right;">Finalizar</button></a>   
 
 </div>    
-    {% else %}
+{% else %}
     carrinho vazio
-    {% endif %}
+{% endif %}
     
 {% endblock %}
 

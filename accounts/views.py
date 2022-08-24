@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from users.forms import CustomUserCreationForm
-from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import HttpResponseRedirect, redirect, HttpResponse
+from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 
 
 class SignUpView(CreateView):
@@ -12,5 +12,14 @@ class SignUpView(CreateView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('produtos:home')
         return super(SignUpView, self).get(request, *args, **kwargs)
+
+
+class LoginView(LoginView):
+        
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('produtos:home')
+        return super(LoginView, self).get(request, *args, **kwargs)
+
