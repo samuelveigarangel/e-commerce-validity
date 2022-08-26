@@ -1,4 +1,3 @@
-
 from django.shortcuts import redirect, render, redirect
 from django.views.generic import ListView, DetailView, View
 from .models import Produto, OrdemItem, Ordem
@@ -16,7 +15,6 @@ class HomeView(ListView):
     def post(self, request, *args, **kwargs):
         product = request.POST.get('id')
         cart = request.session.get('cart')
-        print('entrou')
 
         if cart:
             quantity = cart.get(product)
@@ -96,7 +94,7 @@ class OrdemView(View):
         cart = request.session.get('cart')
         op_quantity = request.POST.get('op_cart')
         del_car = request.POST.get('del_cart')
-
+        
         if del_car:
             del request.session['cart']
             return redirect('produtos:ordemview') 

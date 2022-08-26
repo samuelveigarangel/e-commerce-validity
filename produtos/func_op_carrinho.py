@@ -5,9 +5,9 @@ def diminui_carrinho(cart, product, quantity):
 def aumenta_carrinho(cart, product, quantity):
     cart[product] = quantity + 1
 
-def remove_carrinho(*args):
-    del args[0][args[1]]
-    # del cart[product]
+def remove_carrinho(cart, product, quantity):
+    # del args[0][args[1]]
+    del cart[product]
 
 def carrinho_acoes(cart, product, quantity, op):
     acoes = {

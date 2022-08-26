@@ -16,7 +16,6 @@ def total_item_preco(product, cart):
     for id, qnt in cart.items():
         if int(id) == product.id:
             total += qnt * product.price
-    print(total)
     return total
 
 @register.filter(name='total_carrinho_preco')

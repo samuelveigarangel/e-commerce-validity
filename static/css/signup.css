@@ -1,0 +1,46 @@
+.signup{    
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    width: 320px;
+    margin:auto 55px;
+}
+
+ul{
+    padding-left: 15px;
+}
+
+.password1{
+    margin-bottom: 15px;
+}
+.password2{
+    margin-top: 15px;
+}
+.a-voltar{
+    display: block;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color: rgb(12, 127, 57);
+}
+.a-voltar:hover{
+    color: rgb(12, 127, 57);
+}
+.registrar{
+    font-size: 12px;
+    margin-top: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    min-height: 3rem;
+    min-width: 3rem;
+    background-color: rgb(12, 137, 62);
+    color: white;
+}
+
+.registrar:hover{
+-webkit-box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19); 
+box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19);
+transition: background-color 200ms ease-in 0s;
+background-color: rgb(3, 97, 52);
+}

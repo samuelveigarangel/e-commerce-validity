@@ -1,16 +1,122 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/inputs.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<div class="signup">
+  <hr>
+  <a class="a-voltar" href="{% url 'login' %}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+    </svg>  
+    Voltar
+  </a>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="group">      
+      {{ field }}
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>{{ field.label }}</label>
+      <span>{{ field.errors }}</span>
+    </div>
+    {% endfor %}
+    
+    {% for field in form %}
+      {% if field.help_text %}
+          {{ field.help_text }}
+      {% endif %}
+    {% endfor %}
+  <button type="submit" class="registrar">Registrar</button>
+  </form>
+  <hr style="margin-top: 25px;">
+
+</div>
 
 
-<h2>Sign up</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Sign Up</button>
-</form>
 
-<a href="{% url 'login' %}">Back to login</a>
+
 {% endblock %}
+  <!-- <hr>
+  <a class="a-voltar" href="{% url 'login' %}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+    </svg>  
+    Voltar
+  </a>
+  <h1>Sign up</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="group first_name">      
+      <input type="text" name="first_name" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Primeiro nome</label>
+    </div>
+
+    <div class="group last_name">      
+      <input type="text" name="last_name" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Último nome</label>
+    </div>
+
+    <div class="group">      
+      <input type="text" name="username" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Usuário</label>
+    </div>
+
+    <div class="group">      
+      <input type="email" name="email" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>E-mail</label>
+    </div>
+
+    <div class="group">      
+      <input type="text" name="idade" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Idade</label>
+    </div>
+
+    <div class="group">      
+      <input type="text" name="telefone" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Telefone</label>
+    </div>
+    
+    <div class="group password1">      
+      <input type="password" name="password1" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Senha</label>
+    </div>
+    
+    {% for field in form %}
+      {% if field.help_text %}
+          {{ field.help_text }}
+      {% endif %}
+    {% endfor %}
+
+    <div class="group password2">      
+      <input type="password" name="password2" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Confirme sua senha</label>
+    </div>
+    <button type="submit">Sign Up</button>
+  </form> 
+  <hr>
+  {% if form.errors %}
+   {% for error in form.errors %}
+      {{ error }}
+   {% endfor %}
+{% endif %} -->

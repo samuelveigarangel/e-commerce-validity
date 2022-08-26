@@ -1,13 +1,13 @@
 .container{
     padding: 0;
 }
-.test{
+.card_container{
+    width: 100%;
     background-color: white;
     padding: 20px 10px;
     border: solid 1px #e8e8e8;box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
-}
-.card_container{
-    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 30px;
 }
 .cart_itens{
     width: 100%;
@@ -43,7 +43,8 @@
 .cart_item_image{
     width: 133px;
     height: 133px;
-    float: left
+    float: left;
+
 }
 .cart_item_image img{
     width: 100%;
@@ -92,14 +93,11 @@
     border: solid 1px #e8e8e8;
     box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
     background-color: white;
+    border-radius: 30px;
 }
 .order_total_content{
     text-align: right;
+    padding: 15px;
     font-size: 18px;
 }
-.order_total_title{
-    display: inline-flex;
-}
-.order_total_amount{
-    display: inline-flex;
-}
+

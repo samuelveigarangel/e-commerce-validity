@@ -3,7 +3,7 @@
 {% block title %}Inicio{% endblock %}
 {% load conversao_moeda %}
 {% block content%}
-
+{% load l10n %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
 <h1>Hello, {{ user.username|default:'Guest' }}</h1>
@@ -25,7 +25,6 @@
       <div class="descricao-produto">
         <p>{{product.description}}</p>
       </div>
-
       <div class="produto-prec">
         <div>
           <p>{{product.price|conversao}}</p>

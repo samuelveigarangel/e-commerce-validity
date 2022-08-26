@@ -4,11 +4,6 @@ body{
     background: white;
     overflow-x: hidden;
 }
-
-.container-custom{
-    margin: 0 230px;
-}
-
 @media (min-width: 900px){
     .container{
         max-width: 1200px;
