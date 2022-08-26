@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load carrinho %}
+{% load conversao_moeda %}
 
 
 {% block content %}
@@ -9,26 +10,24 @@
 
 <div class="row">
     <div class="col">    
-        {%if produto.image %}
-            <img class="img-produto" src='/media/{{produto.image}}'>
+        {%if product.image %}
+            <img class="img-produto" src='/media/{{product.image}}'>
         {% else%}
             <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
         {%endif%}
     </div>
-    <div class="col">
-        <h1>{{ produto.name }}</h1>
-        <hr>       
-        <h2>R$ {{ produto.price|floatformat:2 }}</h2>
-        <div class="detalhes">
-            <p class="p-nome-detalhes">Descrição</p>
-            <p class='p-text-detalhes'>{{produto.description}}</p>
-        </div>
-        <hr>
+
+    <div class="col" style="margin:auto;" align="left">
+      <div style="width: 62%;">
+        <h1 class="product-name">{{product.name}}</h1>
+        <p class="product-description">{{product.description}}</p>
+        <p class="product-price">{{product.price|conversao}}</p>
         
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-dark" >Adicionar ao carrinho</button>
+            <button type="submit" class="btn-add-carrinho">Adicionar ao carrinho</button>
         </form>
+      </div>
     </div>
 </div>
 {% endblock %}

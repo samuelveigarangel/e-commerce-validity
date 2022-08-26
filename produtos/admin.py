@@ -4,6 +4,7 @@ from .models import Categoria, Produto, Ordem, OrdemItem
 
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'price', 'sold', 'qnt_stock')
+    list_display_links = ['name']
     prepopulated_fields = {'slug': ("name",)}
 
 

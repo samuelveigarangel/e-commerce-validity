@@ -11,7 +11,7 @@ p{
   border-radius: 5px;
   margin: 25px;
   -webkit-box-shadow: 0px 0px 7px 4px rgba(0,0,0,0.31); 
-    box-shadow: 0px 0px 7px 4px rgba(0,0,0,0.31);
+  box-shadow: 0px 0px 7px 4px rgba(0,0,0,0.31);
 }
 
 .img-produto{
@@ -36,4 +36,7 @@ p{
 }
 .descricao-produto{
   text-align: center;
+}
+#link {
+  text-decoration-color: rgb(178, 34, 34);
 }

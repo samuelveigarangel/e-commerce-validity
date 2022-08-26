@@ -1,8 +1,8 @@
-import imp
 from django.db import models
 from users.models import CustomUser
 from django.urls import reverse
 from .random_number import random_number
+
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50)
