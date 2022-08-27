@@ -85,10 +85,35 @@
 .img-produto:hover{
     transform: scale(1.10);
 }
+.show-countdown{
+    border: none;
+    display: block;
+    margin: 0 8px 8px 8px;
+    background-color: #daa520;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0.5rem;
+}
 
 @media (max-width: 766px){
     .row{
         position: absolute;
         justify-content: space-around;
+    }
+}
+
+@media (max-width: 341px){
+    .produto{
+        padding: 0;
+        margin-bottom: 10px;
+        width: 250px;
+        height: 448px;
+    }
+    .btn-add button{
+        width: 232px;
+    }
+    .carrinho{
+        padding: 10px 10px;
     }
 }

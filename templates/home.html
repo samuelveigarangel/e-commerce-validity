@@ -3,7 +3,7 @@
 {% block title %}Inicio{% endblock %}
 {% load conversao_moeda %}
 {% block content%}
-{% load l10n %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
 <h1>Hello, {{ user.username|default:'Guest' }}</h1>
@@ -35,8 +35,9 @@
             <input type="hidden" value="{{product.id}}" name="id">
             <button type="submit">Adicionar</button>
           </form>
-          <button class="btn-timer">CountDown</button>
         </div>
+        <span class="countdown" style="display: none;">{{product.expiration_date|date:'Y-m-d H:i:s'}}</span>
+        <span class="show-countdown"></span>
       </div>
     </div>
   </div>
@@ -46,39 +47,10 @@
 
 
 
-
-
 {% if not user.is_authenticated %}
   <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
 
+
+<script type="text/javascript" src="{% static 'js/countdown.js' %}"></script>
 {% endblock%}
-
-
-
-    <!-- <div class="card" style="width: 18rem; display: inline-flex;">
-      {%  if produto.image %}
-        <img class="card-img-top" src='/media/{{produto.image}}' alt="">
-      {% else %}
-        <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
-      {% endif %}
-      <div class="card-body">
-        <h5 class="card-title">{{produto.name}}</h5>
-        <p class="card-text">{{produto.description}}nt.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>  -->
-    <div class="div-produto">
-      <a href="{{ produto.get_absolute_url }}">
-      {%if produto.image %}
-        <img class="img-produto" src='/media/{{produto.image}}'>
-      {% else%}
-        <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
-      {%endif%}</a>
-      <div class="detalhe-produto">
-        <a id="link" href="{{ produto.get_absolute_url }}"><p class="nome-produto">{{produto.name}}</p></a>
-        <p class='descricao-produto'>{{produto.description}}</p>
-        <p class="preco-produto">R$: {{produto.price|floatformat:2}}</p>
-      
-      </div>
-    </div>

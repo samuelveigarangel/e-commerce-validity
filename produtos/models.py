@@ -20,6 +20,7 @@ class Produto(models.Model):
     description = models.TextField(default='', blank=True, null=True)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to="products/%Y/%m/%d", blank=True, null=True)
+    expiration_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.name
