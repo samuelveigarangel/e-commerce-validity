@@ -19,7 +19,7 @@ for (i = 0; i < countdown.length; i++){
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   // Display the result in the element with id="demo"
-  show_countdown[i].innerHTML = days + "d " + hours + " : "
+  show_countdown[i].innerHTML = days + "D " + hours + " : "
   + minutes + " : " + seconds + " ";
   if (distance < 0) {
     show_countdown[i].innerHTML = "EXPIRADO!";
