@@ -11,21 +11,18 @@
   <hr>
   <h1>Entre com seus dados</h1>
   
-  <form method="post">
+  <form action="" method="post">
     {% csrf_token %}
+    {% for field in form %}
     <div class="group">      
-      <input type="text" name="username" required>
+      {{ field }}
       <span class="highlight"></span>
       <span class="bar"></span>
-      <label>Usuario</label>
+      <label>{{ field.label }}</label>
     </div>
-
-    <div class="group">      
-      <input type="password" name="password" required autocomplete="on">
-      <span class="highlight"></span>
-      <span class="bar"></span>
-      <label>Senha</label>
-    </div>
+    {% endfor %}
+    
+    {{ form.non_field_errors }}
     <button type="submit" class="btn-entrar">Entrar</button>
   </form>
   <a href="{% url 'signup' %}"><button type="submit" class="btn-registrar">Não tem uma conta?</button></a>

@@ -23,6 +23,8 @@ for (i = 0; i < countdown.length; i++){
   + minutes + " : " + seconds + " ";
   if (distance < 0) {
     show_countdown[i].innerHTML = "EXPIRADO!";
+    show_countdown[i].style.backgroundColor = '#c00';
+    show_countdown[i].style.color = 'white';  
       }
     }
 }, 1000);
