@@ -1,0 +1,20 @@
+{% extends 'base-portal.html' %}
+{% block content %}
+
+<table class="table table-striped">
+    <tr>
+        <th>Cliente</th>
+        <th>Num. Order</th>
+        <th>Produtos</th>
+        <th>Data do pedido</th>
+    </tr>
+    {% for order in orders %}
+        <tr>
+            <td>{{order.user}}</td>
+            <td>{{order.number_order}}</td>
+            <td>{{order.produtos}}</td>
+            <td>{{order.order_date}}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

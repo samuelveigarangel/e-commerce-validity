@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}E-commerce Portal{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- static css -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/base.css' %}"> -->
+
+
+</head>
+<body>
+    <main>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'lojista:minhas_ordens' %}">E-commerce</a>
+                
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Menu
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'lojista:meus_produtos' %}">Produtos</a>
+                            <a class="dropdown-item" href="{% url 'lojista:criar_produto' %}"">Criar produto</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Entrar</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    </div>
+                </div>
+              </nav>
+        </header>
+        <div class="container">
+            <!--{% include 'message/messages.html' %}-->
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).on('click', '#confirm-delete', function(){
+            return confirm('Você tem certeza que deseja excluir?');
+        })
+    </script>
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>
