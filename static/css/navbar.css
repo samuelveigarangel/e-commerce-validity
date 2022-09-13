@@ -199,6 +199,16 @@ button:focus{outline:none !important;}
 .mobile-menu.active .line3 {
   transform: rotate(45deg) translate(-3px, -7px);
 }
+.dropdown-menu{
+    border-radius: 30px;
+}
+.dropdown-item:hover{
+    background-color: rgb(246, 243, 234);
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
 
 @media (max-width: 420px){
     .input-search{

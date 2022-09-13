@@ -3,10 +3,12 @@ from .models import Produto, OrdemItem, Ordem
 from .func_op_carrinho import carrinho_acoes
 from users.models import CustomUser, Lojista
 
+from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, redirect
+from datetime import date, timedelta
 
 # Create your views here.
 
@@ -34,10 +36,9 @@ class HomeView(ListView):
 
         return redirect("produtos:ordemview")
 
-    # def get(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         print(self.request.user.role)
-    #     return super().get(request, *args, **kwargs)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(expiration_date__gte=date.today() + timedelta(days=1))
 
 
 class ProcurarProdutosList(ListView):
@@ -61,11 +62,11 @@ class ProdutosDetail(DetailView):
     model = Produto
     template_name = "produto/produto_detail.html"
     context_object_name = "product"
-
+    
     def post(self, request, *args, **kwargs):
         product = str(self.get_object().id)
         cart = request.session.get("cart")
-
+        
         if cart:
             quantity = cart.get(product)
             if quantity:
@@ -80,12 +81,16 @@ class ProdutosDetail(DetailView):
 
         return redirect("produtos:ordemview")
 
+    def get_queryset(self):
+        return Produto.objects.filter(expiration_date__gte=date.today() + timedelta(days=1))
+
+
 
 class OrdemView(View):
     def get(self, request):
         try:
-            product = Produto.objects.filter(
-                id__in=list(request.session.get("cart").keys())
+            product = Produto.objects.filter( Q(id__in=list(request.session.get("cart").keys())) 
+                & Q(expiration_date__gte=date.today() + timedelta(days=1))    
             )
             context = {"itens": product}
             return render(request, "produto/carrinho.html", context)
@@ -128,13 +133,13 @@ class CheckoutView(UserPassesTestMixin, LoginRequiredMixin, View):
             )
             # Verificar se todos os produtos pertencem a mesma loja
             if len(set(list(product.values_list("supermarket", flat=True)))) == 1:
+                itens = []
                 dict_ord = sorted(request.session["cart"].items())
                 dict_car = {k: v for k, v in dict_ord}
                 order, created = Ordem.objects.get_or_create(
                     user=request.user,
                     ordered=False,
                 )
-                itens = []
 
                 for prod, qnt in zip(product, dict_car.values()):
                     order_item, created = OrdemItem.objects.get_or_create(

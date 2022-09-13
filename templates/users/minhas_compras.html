@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for ordem in ordens %}
+{{ordem}}
+{{ordem.produtos}}
+{% endfor %}
+
+{% endblock %}

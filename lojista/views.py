@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 
 
-class CheckUserSupermarket:
+class SupermarketUserMixin(UserPassesTestMixin, LoginRequiredMixin):
     def test_func(self):
         if self.request.user.is_authenticated:
             print("entrou")
@@ -25,9 +25,7 @@ class CheckUserSupermarket:
         return redirect("login")
 
 
-class MinhasOrdens(
-    CheckUserSupermarket, UserPassesTestMixin, LoginRequiredMixin, ListView
-):
+class MinhasOrdens(SupermarketUserMixin, ListView):
     model = Ordem
     template_name = "lojista/minhas_ordens.html"
     context_object_name = "orders"
@@ -37,9 +35,7 @@ class MinhasOrdens(
         return qs.filter(supermarket__supermarket=self.request.user)
 
 
-class MeusProdutos(
-    CheckUserSupermarket, UserPassesTestMixin, LoginRequiredMixin, ListView
-):
+class MeusProdutos(SupermarketUserMixin, ListView):
     model = Produto
     template_name = "lojista/produtos.html"
     context_object_name = "products"
@@ -49,9 +45,7 @@ class MeusProdutos(
         return qs.filter(supermarket__supermarket=self.request.user)
 
 
-class EditProduct(
-    CheckUserSupermarket, UserPassesTestMixin, LoginRequiredMixin, UpdateView
-):
+class EditProduct(SupermarketUserMixin, UpdateView):
     model = Produto
     template_name = "lojista/editar_produto.html"
     context_object_name = "products"
@@ -68,9 +62,7 @@ class EditProduct(
     ]
 
 
-class CriarProduto(
-    CheckUserSupermarket, UserPassesTestMixin, LoginRequiredMixin, CreateView
-):
+class CriarProduto(SupermarketUserMixin, CreateView):
     model = Produto
     form_class = CriarProdutoForms
     template_name = "lojista/criar_produto.html"
@@ -85,6 +77,5 @@ class CriarProduto(
 
 def delete_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
-    print(produto)
     produto.delete()
     return redirect("lojista:meus_produtos")
