@@ -8,11 +8,32 @@
 {% if itens %}
 <div class="card_title">
     <h4>Meu carrinho</h4>
-    <form method="post">
+    <!-- <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-outline-danger" value="True" name="del_cart">Limpar carrinho</button>
-    </form>
+    </form> -->
 </div>
+<style>
+    .btn-finalizar{
+    font-size: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    min-height: 3rem;
+    min-width: 3rem;
+    background-color: rgb(12, 137, 62);
+    color: white;
+  }
+  
+  .btn-finalizar:hover{
+    -webkit-box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19); 
+    box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19);
+    transition: background-color 200ms ease-in 0s;
+    background-color: rgb(3, 97, 52);
+  }
+</style>
 
 {% for produto in itens %}
   
@@ -78,7 +99,7 @@
   </div>
 </div>
 
-<a href="{% url 'produtos:finalizar' %}"><button class="btn btn-outline-danger" style="float: right;">Finalizar</button></a>   
+<a href="{% url 'produtos:finalizar' %}"><button class="btn-finalizar" style="float: right;">Finalizar</button></a>   
 
 {% else %}
     {% include 'partials/_carrinho_vazio.html' %}

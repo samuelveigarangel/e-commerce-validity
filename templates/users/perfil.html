@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+<link rel="stylesheet" href="{% static 'css/inputs.css' %}">
+
+<div class="header-perfil">
+    <h1>Editar Perfil</h1>
+    <p>Mantenha suas informações sempre atualizadas.</p>
+</div>
+
+<div class="perfil">
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="group">      
+          {{ field }}
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>{{ field.label }}</label>
+        </div>
+        {% endfor %}
+        
+        {{ form.non_field_errors }}
+        <button type="submit" class="btn-entrar">Entrar</button>
+        <a class="redefinir-senha" href="{% url 'password_change' %}">Redefinir senha</a>
+      </form>
+
+</div>
+{% endblock %}

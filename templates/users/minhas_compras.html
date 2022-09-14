@@ -1,10 +1,35 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/carrinho_vazio.css'%}">
+<style>
+    .num-pedido{
+        text-transform: uppercase;
+        color: rgb(12, 127, 57);
+    }
+    h1{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+</style>
 
+<h1>Meus pedidos</h1>
 {% for ordem in ordens %}
-{{ordem}}
-{{ordem.produtos}}
-{% endfor %}
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+             <div class="card-body cart">
+                  <div class="col-sm-12 empty-cart-cls text-center">
+                    <p class="num-pedido">{{ordem.number_order}}</p>
+                    <p>{{ordem.supermarket}}</p>
+                    {{ordem.produtos}}
+                  </div>
+             </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 
 {% endblock %}
