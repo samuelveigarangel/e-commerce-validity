@@ -14,7 +14,7 @@ class MinhasCompras(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(user=self.request.user).order_by('-order_date')
+        return qs.filter(user=self.request.user).order_by("-order_date")
 
 
 class Perfil(LoginRequiredMixin, UpdateView):

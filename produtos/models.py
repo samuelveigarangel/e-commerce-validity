@@ -7,11 +7,23 @@ from .utils import unique_slug_generator
 from django.db.models.signals import pre_save
 
 
+def slug_generator(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+
 class Categoria(models.Model):
-    nome = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=250, null=True, blank=True)
 
     def __str__(self):
-        return self.nome
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("produtos:categoria", kwargs={"slug": self.slug})
+
+
+pre_save.connect(slug_generator, sender=Categoria)
 
 
 class Produto(models.Model):
@@ -39,11 +51,6 @@ class Produto(models.Model):
 
     def get_absolute_url(self):
         return reverse("produtos:produto_detail", kwargs={"slug": self.slug})
-
-
-def slug_generator(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = unique_slug_generator(instance)
 
 
 pre_save.connect(slug_generator, sender=Produto)

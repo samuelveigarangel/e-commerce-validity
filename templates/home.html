@@ -5,8 +5,31 @@
 {% block content%}
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<style>
+  .categoria{
+    margin: 2.5rem 0;
 
-<h1>Categorias</h1>
+  }
+  .img-categoria{
+    height: 120px;
+    width: 130px;
+    border-radius: 10px;
+    transition: transform .2s;
+    margin-right: 20px;
+  }
+  .img-categoria:hover{
+    transform: scale(1.10);
+  }
+</style>
+
+
+<div class="categoria">
+  {% for categoria in categorias %}
+    <a href="{{categoria.get_absolute_url}}"><img class="img-categoria" src='/static/img/{{categoria.slug}}.jpg' %}"></a>
+  {% endfor%}
+</div>
+
+
 
 <div class="row">
   {% for product in products %}
@@ -14,9 +37,9 @@
     <div class="produto-img-descric">
       <a href="{{product.get_absolute_url}}" class="produto-link">
         {%if product.image %}
-        <img class="img-produto" src='/media/{{product.image}}' class="card-img-top hover_img ">
+        <img class="img-produto" src='/media/{{product.image}}'>
         {% else%}
-          <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}" class="card-img-top hover_img">
+          <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
         {%endif%}
       </a>
 

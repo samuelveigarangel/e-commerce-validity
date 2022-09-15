@@ -23,7 +23,7 @@ class SupermarketUserMixin(UserPassesTestMixin, LoginRequiredMixin):
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
-            messages.error(self.request, 'Entre com um usuário SUPERMARKET')
+            messages.error(self.request, "Entre com um usuário SUPERMARKET")
         return redirect("login")
 
 

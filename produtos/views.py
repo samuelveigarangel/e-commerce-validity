@@ -1,12 +1,11 @@
 from django.views.generic import ListView, DetailView, View
-from .models import Produto, OrdemItem, Ordem
+from .models import Produto, OrdemItem, Ordem, Categoria
 from .func_op_carrinho import carrinho_acoes
-from users.models import CustomUser, Lojista
+from users.models import Lojista
 
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from datetime import date, timedelta
@@ -41,27 +40,44 @@ class HomeView(ListView):
         qs = super().get_queryset()
         return qs.filter(expiration_date__gte=date.today() + timedelta(days=1))
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["categorias"] = Categoria.objects.all()
+        return context
 
-class ProcurarProdutosList(ListView):
+
+class ProcurarProdutoView(ListView):
     model = Produto
     template_name = "home.html"
     context_object_name = "products"
     paginate_by = 10
 
     def get_queryset(self):
-
+        qs = super().get_queryset()
         query = self.request.GET.get("search")
         if query is not None:
-            if Produto.objects.filter(name__icontains=query.strip()).exists():
-                return Produto.objects.filter(name__icontains=query.strip()).order_by(
-                    "name"
-                )
+            if qs.filter(name__icontains=query.strip()).exists():
+                return qs.filter(name__icontains=query.strip()).order_by("name")
             else:
-                messages.info(self.request, 'Produto não encontrado. Tente novamente com outro nome!')
-                return Produto.objects.none()
+                messages.info(
+                    self.request,
+                    "Produto não encontrado. Tente novamente com outro nome!",
+                )
+                return qs.none()
 
 
-class ProdutosDetail(DetailView):
+class CategoriaProdutoView(ListView):
+    model = Categoria
+    template_name = "home.html"
+    context_object_name = "categorias"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["products"] = Produto.objects.filter(category__slug=self.kwargs["slug"])
+        return context
+
+
+class ProdutoDetail(DetailView):
     model = Produto
     template_name = "produto/produto_detail.html"
     context_object_name = "product"
@@ -165,7 +181,10 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
                 }
                 return render(request, "produto/ordemview.html", context)
             else:
-                messages.warning(request, 'Em seu carrinho há produtos de lojas diferentes. Escolha produto apenas da mesma loja!')
+                messages.warning(
+                    request,
+                    "Em seu carrinho há produtos de lojas diferentes. Escolha produto apenas da mesma loja!",
+                )
                 return redirect("produtos:ordemview")
         except ObjectDoesNotExist:
             return redirect("produtos:home")
@@ -179,5 +198,5 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
-            messages.error(self.request, 'ERROR. Entre com um usuário CLIENT!')
+            messages.error(self.request, "ERROR. Entre com um usuário CLIENT!")
         return redirect("produtos:ordemview")
