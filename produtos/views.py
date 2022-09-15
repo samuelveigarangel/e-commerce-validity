@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from datetime import date, timedelta
 
 # Create your views here.
@@ -51,11 +52,13 @@ class ProcurarProdutosList(ListView):
 
         query = self.request.GET.get("search")
         if query is not None:
-            return Produto.objects.filter(name__icontains=query.strip()).order_by(
-                "name"
-            )
-        else:
-            return Produto.objects.none()
+            if Produto.objects.filter(name__icontains=query.strip()).exists():
+                return Produto.objects.filter(name__icontains=query.strip()).order_by(
+                    "name"
+                )
+            else:
+                messages.info(self.request, 'Produto não encontrado. Tente novamente com outro nome!')
+                return Produto.objects.none()
 
 
 class ProdutosDetail(DetailView):
@@ -162,7 +165,7 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
                 }
                 return render(request, "produto/ordemview.html", context)
             else:
-                # adicionar mensagem de erro
+                messages.warning(request, 'Em seu carrinho há produtos de lojas diferentes. Escolha produto apenas da mesma loja!')
                 return redirect("produtos:ordemview")
         except ObjectDoesNotExist:
             return redirect("produtos:home")
@@ -176,5 +179,5 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
-            return HttpResponse("Logue como um usuário client")
-        return redirect("login")
+            messages.error(self.request, 'ERROR. Entre com um usuário CLIENT!')
+        return redirect("produtos:ordemview")

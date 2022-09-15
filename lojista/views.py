@@ -1,8 +1,10 @@
+from itertools import product
 from django.views.generic import ListView, UpdateView, CreateView
 from produtos.models import Produto, Ordem
-from users.models import CustomUser, Lojista
+from users.models import Lojista
 from .forms import CriarProdutoForms
 
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -21,7 +23,7 @@ class SupermarketUserMixin(UserPassesTestMixin, LoginRequiredMixin):
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
-            return HttpResponse("Logue como um usuário supermarket")
+            messages.error(self.request, 'Entre com um usuário SUPERMARKET')
         return redirect("login")
 
 
@@ -76,6 +78,6 @@ class CriarProduto(SupermarketUserMixin, CreateView):
 
 
 def delete_produto(request, pk):
-    produto = get_object_or_404(Produto, pk=pk)
-    produto.delete()
+    product = get_object_or_404(Produto, pk=pk)
+    product.delete()
     return redirect("lojista:meus_produtos")
