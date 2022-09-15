@@ -22,7 +22,8 @@
         <h1 class="product-name">{{product.name}}</h1>
         <p class="product-description">{{product.description}}</p>
         <p class="product-price">{{product.price|conversao}}</p>
-        
+        <p>{{product.expiration_date}}</p>
+        <p>{{product.supermarket}}</p>
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn-add-carrinho">Adicionar ao carrinho</button>

@@ -6,7 +6,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
-<h1>Hello, {{ user.username|default:'Guest' }}</h1>
+<h1>Categorias</h1>
 
 <div class="row">
   {% for product in products %}
@@ -26,8 +26,11 @@
         <p>{{product.description}}</p>
       </div>
       <div class="produto-prec">
-        <div>
-          <p>{{product.price|conversao}}</p>
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+            <p>{{product.price|conversao}}</p>
+          </div>
+          <p>Un</p>  
         </div>
         <div class="btn-add">
           <form method="post">

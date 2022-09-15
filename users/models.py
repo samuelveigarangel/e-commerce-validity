@@ -41,4 +41,4 @@ class Lojista(models.Model):
     street = models.CharField(max_length=128, null=True)
 
     def __str__(self):
-        return f"{self.supermarket.username} - {self.street}, {self.district} - {self.city}/{self.state}"
+        return f"{self.supermarket.username} - {self.street} - {self.district}, {self.city}/{self.state}, {self.cep}"

@@ -39,3 +39,11 @@ class CustomUserChangeForm(UserChangeForm):
             "first_name",
             "last_name",
         )
+
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ["username", "first_name", "last_name", "email"]
+
+    email = forms.CharField(disabled=True)

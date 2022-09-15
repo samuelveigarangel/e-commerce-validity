@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from django.shortcuts import redirect, render, redirect
+from django.shortcuts import redirect, render
 from datetime import date, timedelta
 
 # Create your views here.
@@ -62,11 +62,11 @@ class ProdutosDetail(DetailView):
     model = Produto
     template_name = "produto/produto_detail.html"
     context_object_name = "product"
-    
+
     def post(self, request, *args, **kwargs):
         product = str(self.get_object().id)
         cart = request.session.get("cart")
-        
+
         if cart:
             quantity = cart.get(product)
             if quantity:
@@ -82,15 +82,17 @@ class ProdutosDetail(DetailView):
         return redirect("produtos:ordemview")
 
     def get_queryset(self):
-        return Produto.objects.filter(expiration_date__gte=date.today() + timedelta(days=1))
+        return Produto.objects.filter(
+            expiration_date__gte=date.today() + timedelta(days=1)
+        )
 
 
-
-class OrdemView(View):
+class CheckoutView(View):
     def get(self, request):
         try:
-            product = Produto.objects.filter( Q(id__in=list(request.session.get("cart").keys())) 
-                & Q(expiration_date__gte=date.today() + timedelta(days=1))    
+            product = Produto.objects.filter(
+                Q(id__in=list(request.session.get("cart").keys()))
+                & Q(expiration_date__gte=date.today() + timedelta(days=1))
             )
             context = {"itens": product}
             return render(request, "produto/carrinho.html", context)
@@ -124,7 +126,7 @@ class OrdemView(View):
         return redirect("produtos:ordemview")
 
 
-class CheckoutView(UserPassesTestMixin, LoginRequiredMixin, View):
+class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
     def get(self, request):
         # print(request.session.get('cart'))
         try:
@@ -154,8 +156,11 @@ class CheckoutView(UserPassesTestMixin, LoginRequiredMixin, View):
                 order.save()
                 del request.session["cart"]
 
-                context = {"itens": itens}
-                return render(request, "produto/checkout.html", context)
+                context = {
+                    "itens": itens,
+                    "order": order,
+                }
+                return render(request, "produto/ordemview.html", context)
             else:
                 # adicionar mensagem de erro
                 return redirect("produtos:ordemview")

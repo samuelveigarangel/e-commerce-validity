@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/ordemview.css' %}">
+<link rel="stylesheet" href="{% static 'css/carrinho_vazio.css' %}">
+
+<div class="container-fluid  mt-100">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+           <div class="card-body cart">
+                <div class="col-sm-12 empty-cart-cls text-center">
+                    <img src="https://imgur.com/Yv8wCOX.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <p style="text-transform: uppercase;"> Parabéns, você completou seu pedido!</p> 
+                    <p> Prossiga até a Loja <span class="text-supermarket">{{order.supermarket}}</span>
+                    e informe o número do seu pedido <span class="text-order">{{order.number_order}}</span></p>
+                    <p style="font-weight: bolder; font-size: large; color: brown;">Você tem até um dia para pegar seu pedido, após isso, ele será cancelado automaticamente!!!</p>
+                </div>
+           </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
