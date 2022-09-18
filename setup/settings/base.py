@@ -151,6 +151,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 USE_L10N = True
+DISABLE_COLLECTSTATIC=1
 
 # messages
 from django.contrib.messages import constants as messages
