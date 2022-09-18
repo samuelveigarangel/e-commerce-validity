@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
             "last_name",
         )
 
-    fieldsets = UserAdmin.fieldsets + ((None, {"fields": ("role",)}),)
+    fieldsets = UserAdmin.fieldsets + (('Role', {"fields": ("role",)}),)
 
 
 @admin.register(Lojista)
