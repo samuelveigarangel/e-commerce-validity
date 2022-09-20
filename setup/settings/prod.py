@@ -32,7 +32,7 @@ LOGGING = {
     "loggers": {
         "MYAPP": {
             "handlers": ["console"],
-            "level": "DEBUG",
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
         },
     },
 }
