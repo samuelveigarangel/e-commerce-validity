@@ -73,16 +73,16 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
-# load_dotenv(find_dotenv())
+load_dotenv(find_dotenv())
 
-# DATABASES = {'default': dj_database_url.config(default='sqlite://db.slite3', conn_max_age=600, ssl_require=False)}
+DATABASES = {'default': dj_database_url.config(default='sqlite://db.slite3', conn_max_age=600, ssl_require=False)}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -139,7 +139,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 USE_L10N = True
-DISABLE_COLLECTSTATIC = 1
 
 # messages
 from django.contrib.messages import constants as messages
