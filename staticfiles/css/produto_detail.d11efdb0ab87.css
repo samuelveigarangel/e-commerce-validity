@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+h2{
+    color: rgb(178, 34, 34)
+}
+h1{
+    color: #565656;
+}
+
+img{
+    width: 500px;
+    height: 500px;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.col{
+    margin-top: 100px;
+}
+.product-name{
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0px;
+}
+.product-description{
+    margin-top: 8px;
+    color: rgb(91, 91, 95);
+    font-family: 'Poppins', sans-serif;
+}
+.product-price{
+    font-size: 16px;
+}
+.btn-add-carrinho{
+    cursor: pointer;
+    width: 100%;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    min-height: 3rem;
+    min-width: 3rem;
+    border: none;
+    transition: background-color 0.2s ease-in-out 0s;
+    background-color: rgb(12, 137, 62);
+    color: white;
+}
+
+.btn-add-carrinho:hover{
+    background-color: rgb(3, 97, 52);
+}
+
+/* 
+.p-nome-detalhes{
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 10%;
+    color: #565656;
+}
+
+.p-text-detalhes{
+    color: #4f4f4f;
+    text-align: justify;
+}
+.detalhes{
+    display: flex;
+    align-items: baseline;
+} */
+#link {
+    text-decoration: none;
+    color: white;
+}

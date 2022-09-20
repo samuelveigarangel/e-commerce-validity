@@ -1,0 +1,43 @@
+.btn-entrar{
+    font-size: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    min-height: 3rem;
+    min-width: 3rem;
+    background-color: rgb(12, 137, 62);
+    color: white;
+  }
+  
+  .btn-entrar:hover{
+    -webkit-box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19); 
+    box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19);
+    transition: background-color 200ms ease-in 0s;
+    background-color: rgb(3, 97, 52);
+  }
+  .btn-registrar{
+    width: 100%;
+    font-size: 12px;
+    margin-top: 8px;
+    border: 2px solid  rgb(12, 137, 62);
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    min-height: 3rem;
+    min-width: 3rem;
+    background-color: white;
+    color:  rgb(12, 137, 62);
+  }
+  
+  .btn-registrar:hover{
+    -webkit-box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19); 
+    box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19);
+    transition: all 0.2s ease-in-out 0s;
+    background-color: rgb(12, 137, 62);
+    color: white;
+  }
+  .esqueceu-senha{
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+  }

@@ -1,0 +1,40 @@
+.header-perfil{
+    text-align: center;
+}
+
+.perfil{
+    display: flex;
+    padding: 7.5rem 1.5rem;
+    border: solid 1px #e8e8e8;
+    height: 600px;
+    width: 40%;
+    margin:0 auto;
+    margin-top: 70px;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+    justify-content: center;
+}
+.redefinir-senha{
+    text-align: center;
+    margin-top: 15px;
+    display: block;
+}
+.btn-entrar{
+    font-size: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    min-height: 3rem;
+    min-width: 3rem;
+    background-color: rgb(12, 137, 62);
+    color: white;
+  }
+  
+  .btn-entrar:hover{
+    -webkit-box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19); 
+    box-shadow: 5px 5px 16px 1px rgba(0,0,0,0.19);
+    transition: background-color 200ms ease-in 0s;
+    background-color: rgb(3, 97, 52);
+  }

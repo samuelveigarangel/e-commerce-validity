@@ -1,0 +1,9 @@
+.text-supermarket{
+    font-weight: 100;
+    text-transform: uppercase;
+}
+.text-order{
+    color: rgb(12, 127, 57);
+    font-weight: bolder;
+    font-size: large;
+}

@@ -1,0 +1,119 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.produto{
+    padding: 0;
+    margin-bottom: 10px;
+    width: 289px;
+    height: 448px;
+    border: 0.5px solid rgb(226, 226, 226);
+    margin-left: 10px;
+    border-radius: 0.5rem;
+    transition: box-shadow 200ms ease 0s;
+}
+.produto-link{
+    cursor: pointer;
+    display: block;
+    flex-direction: column;
+    position: relative;
+
+    overflow: hidden;
+    text-decoration: none;
+    border-radius: 0.5rem;
+}
+.produto-body{
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    height: 238px;
+}
+.descricao-produto p, .produto-prec div p{
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}   
+.produto-link:link{
+    text-decoration: none;
+}
+.img-produto{
+    height: 210px;
+    width: 100%;
+    transition: transform .2s;
+}
+.descricao-produto{
+    padding: 1rem 1rem;
+}
+.descricao-produto p{
+    margin-bottom: 0;
+    font-weight: 100;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+.produto-prec p{
+    padding: 0 10px;
+}
+.btn-add{
+    width: 100%;
+    padding-left: 8px;
+    padding-bottom: 8px;
+} 
+.btn-add button{
+    width: 270px;
+    text-transform: uppercase;
+    color: rgb(12, 127, 57);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(12, 127, 57);
+    border-radius: 0.5rem;
+    height: 2rem;
+    transition: color 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, border 0.2s ease-in-out 0s, width 0.2s ease 0s;
+}
+.btn-timer{
+    margin-top: 5px;
+}
+.btn-add button:hover{
+    background-color: rgb(12, 127, 57);
+    color: white
+}
+.produto:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+.img-produto:hover{
+    transform: scale(1.10);
+}
+.show-countdown{
+    border: none;
+    display: block;
+    margin: 0 8px 8px 8px;
+    background-color: #daa520;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 766px){
+    .row{
+        position: absolute;
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 341px){
+    .produto{
+        padding: 0;
+        margin-bottom: 10px;
+        width: 250px;
+        height: 448px;
+    }
+    .btn-add button{
+        width: 232px;
+    }
+    .carrinho{
+        padding: 10px 10px;
+    }
+}

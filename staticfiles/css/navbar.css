@@ -1,0 +1,227 @@
+.navbar{
+    background-color: white;
+    display: flex;
+    width: 100%;
+    height: 80px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 0px;
+}
+
+.menuItem a:hover, .menuItem a {
+    color: black
+}
+.menuItem a:link {
+    text-decoration: none;
+}
+button:focus{outline:none !important;}
+.menu{
+    margin: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+.menuItem{
+    font-weight: bold;
+    padding: 11px 1px;
+}
+.menuItem a{
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    padding: 12px 26px;
+
+}
+.menuItem:hover{
+    background-color: rgb(246, 243, 234);
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;    
+    transition: background-color 200ms ease-in 0s;
+}
+
+.button-login{
+    padding: 12px 26px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    border: none;
+    background-color: transparent;
+}
+
+.button-login:hover{
+    background-color: rgb(246, 243, 234);
+    transition: background-color 200ms ease-in 0s;
+}
+.button-login svg{
+    margin: 0 3px 2px 0;
+}
+.input-search{
+    width: 400px;
+    height: 24px;
+    border-radius: 30px;
+    padding: 20px;
+    border: none;
+    outline: none;
+    background-color: rgb(246, 243, 234);
+}
+.input-search::placeholder{
+    text-align: center;
+}
+.form-search{
+    display:flex;
+    flex-direction: row;
+    min-width: 18% !important;
+}
+.search-button{
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: -33px;
+    margin-bottom: 3px;
+    color: rgb(12, 127, 57);
+}
+.search-button svg{
+    object-fit: cover;
+}
+.carrinho{
+    background-color: rgb(12, 127, 57);
+    padding: 12px 26px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    color: white;
+}
+.carrinho:hover{
+    color: white;
+    transition: background-color 200ms ease-in 0s;
+    background-color: rgb(3, 97, 52);
+}
+
+.carrinho svg{
+    color: white;
+    margin-bottom: 3px;
+}
+.mobile-menu div{
+    width: 26px;
+    height: 1px;
+    background: black;
+    margin: 6px;
+}
+.mobile-menu{
+    display: none;
+    cursor: pointer;
+}
+.search-icon,
+.cancel-icon{
+    display: none;
+}
+
+@media (max-width: 970px){
+    body{
+        overflow-x: hidden;
+    }
+    .menu{
+        position: absolute;
+        top: 80px;
+        left: 0;
+        background: rgb(246, 243, 234);
+        width: 50vw;
+        height: 92vh;
+        flex-direction: column;
+        align-items: center;
+        z-index: 99;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in;
+    }
+    .menuItem{
+        margin-left: 0;
+        margin: 10px 0;
+        opacity: 0;
+    }
+    .mobile-menu {
+        display: block;
+    }
+    .form-search{
+        position: absolute;
+        top: 100px;
+        /* left: 0; */
+        left: 50%; /* position the left edge of the element at the middle of the parent */
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none;
+
+        /* width: 100vh; */
+        transition: top 0.3s ease, opacity 0.1s ease;
+        /* width: 100%; */
+    }
+    .form-search.active{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .search-icon{
+        display: block;
+    }
+    .cancel-icon.show{
+        display: block;
+    }
+    .search-icon.hide{
+        display: none;
+    }
+    .carrinho{
+        padding: 10px 20px;
+    }
+}
+
+
+.menu.active{
+    transform: translateX(0);
+}
+
+@keyframes menuItemFade{
+    from{
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.mobile-menu.active .line1 {
+  transform: rotate(-45deg) translate(-3px, 7px);
+}
+
+.mobile-menu.active .line2 {
+  opacity: 0;
+}
+
+.mobile-menu.active .line3 {
+  transform: rotate(45deg) translate(-3px, -7px);
+}
+.show{
+    padding: 7px 15px;
+    border-radius: 10px;
+}
+.dropdown-toggle{
+    color: black;
+}
+.dropdown-toggle:hover{
+    color: black;
+}
+.dropdown-item:hover{
+    background-color: rgb(246, 243, 234);
+}
+
+
+@media (max-width: 420px){
+    .input-search{
+        width: 300px;
+    }
+}
+
+@media (max-width: 310px){
+    .input-search{
+        width: 200px;
+    }
+}
