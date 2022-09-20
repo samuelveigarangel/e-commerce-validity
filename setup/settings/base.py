@@ -9,23 +9,13 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import dj_database_url
+from dotenv import load_dotenv, find_dotenv
 
 from pathlib import Path, os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-di!)_+e7j!-y#097()c^nskqgpgqfv7--n$kkdscta(g^=n5f)"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -45,6 +35,7 @@ INSTALLED_APPS = [
     # 3rd
     "localflavor",
     "tempus_dominus",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -89,6 +80,9 @@ DATABASES = {
     }
 }
 
+# load_dotenv(find_dotenv())
+
+# DATABASES = {'default': dj_database_url.config(default='sqlite://db.slite3', conn_max_age=600, ssl_require=False)}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -125,9 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -139,10 +131,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Extend User
 AUTH_USER_MODEL = "users.CustomUser"
 
-# Send Email
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
@@ -151,7 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 USE_L10N = True
-DISABLE_COLLECTSTATIC=1
+DISABLE_COLLECTSTATIC = 1
 
 # messages
 from django.contrib.messages import constants as messages

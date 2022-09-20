@@ -73,7 +73,10 @@ class CategoriaProdutoView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["products"] = Produto.objects.filter(category__slug=self.kwargs["slug"])
+        context["products"] = Produto.objects.filter(
+            Q(category__slug=self.kwargs["slug"])
+            & Q(expiration_date__gte=date.today() + timedelta(days=1))
+        )
         return context
 
 
@@ -199,4 +202,7 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
             messages.error(self.request, "ERROR. Entre com um usuário CLIENT!")
+        elif self.request.user.is_anonymous:
+            messages.error(self.request, "Por favor, Login da sua conta ou crie uma nova!")
+            return redirect("login")
         return redirect("produtos:ordemview")

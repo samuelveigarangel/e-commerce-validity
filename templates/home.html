@@ -10,22 +10,39 @@
     margin: 2.5rem 0;
 
   }
-  .img-categoria{
+  .div-categoria{
+    display: inline-flex;
     height: 120px;
-    width: 130px;
+    width: 120px;
     border-radius: 10px;
     transition: transform .2s;
     margin-right: 20px;
+    position: relative
   }
-  .img-categoria:hover{
+  .div-categoria:hover{
     transform: scale(1.10);
+  }
+  .categoria a{
+    text-decoration: none;
+    color: white;
+  }
+  .div-categoria p {
+    margin: 0;
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    text-transform: uppercase;
+    font-size: 25px;
   }
 </style>
 
-
 <div class="categoria">
   {% for categoria in categorias %}
-    <a href="{{categoria.get_absolute_url}}"><img class="img-categoria" src='/static/img/{{categoria.slug}}.jpg' %}"></a>
+  <a href="{{categoria.get_absolute_url}}"><div class="div-categoria"><p>{{categoria.name}}</p></div></a>
   {% endfor%}
 </div>
 
@@ -79,4 +96,14 @@
 
 
 <script type="text/javascript" src="{% static 'js/countdown.js' %}"></script>
+<script>
+  var div_color = document.getElementsByClassName('div-categoria');
+  console.log
+  div_color[0].style.backgroundColor = '#7d35ed';
+  div_color[1].style.backgroundColor = '#e93f3f';
+  div_color[2].style.backgroundColor = '#e4bf2a';
+  
+
+</script>
+
 {% endblock%}

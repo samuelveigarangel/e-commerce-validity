@@ -1,2 +1,1 @@
-release: python3 manage.py migrate
-web: gunicorn setup.wsgi --preload --log-file -
+web: python manage.py migrate && gunicorn setup.wsgi
