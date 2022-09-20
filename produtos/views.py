@@ -203,6 +203,8 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
         if self.request.user.is_authenticated:
             messages.error(self.request, "ERROR. Entre com um usuário CLIENT!")
         elif self.request.user.is_anonymous:
-            messages.error(self.request, "Por favor, Faça login da sua conta ou crie uma nova!")
+            messages.error(
+                self.request, "Por favor, Faça login da sua conta ou crie uma nova!"
+            )
             return redirect("login")
         return redirect("produtos:ordemview")
