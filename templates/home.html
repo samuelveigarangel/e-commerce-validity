@@ -91,12 +91,11 @@
 
 <script type="text/javascript" src="{% static 'js/countdown.js' %}"></script>
 <script>
+  var cores = ['#7d35ed', '#e93f3f', 'e4bf2a' ]
   var div_color = document.getElementsByClassName('div-categoria');
-  console.log
-  div_color[0].style.backgroundColor = '#7d35ed';
-  div_color[1].style.backgroundColor = '#e93f3f';
-  div_color[2].style.backgroundColor = '#e4bf2a';
-  
+  for(var i= 0; i < div_color.length; i++){
+    div_color[i].style.backgroundColor = cores[i]
+  }
 
 </script>
 
