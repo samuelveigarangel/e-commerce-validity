@@ -32,7 +32,7 @@ AWS_QUERYSTRING_AUTH = False
 
 AWS_HEADERS = {'Access-Control-Allow-Origin': '*'}
 
-DEFAULT_FILE_STORAGE = 'mysite.storage_backends.MediaStorage'
+DEFAULT_FILE_STORAGE = 'setup.storage_backends.MediaStorage'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
