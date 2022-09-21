@@ -9,9 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import dj_database_url
-from dotenv import load_dotenv, find_dotenv
-
+from decouple import config
 from pathlib import Path, os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,6 +34,7 @@ INSTALLED_APPS = [
     "localflavor",
     "tempus_dominus",
     "django_extensions",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +115,9 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+#Amazon S3 settings
+
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
