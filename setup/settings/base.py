@@ -80,11 +80,11 @@ WSGI_APPLICATION = "setup.wsgi.application"
 #     }
 # }
 
-load_dotenv(find_dotenv())
+# load_dotenv(find_dotenv())
 
-DATABASES = {
-    "default": dj_database_url.config(default="sqlite://db.slite3")
-}
+# DATABASES = {
+#     "default": dj_database_url.config(default="sqlite://db.slite3")
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

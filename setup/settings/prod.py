@@ -38,5 +38,13 @@ LOGGING = {
 }
 
 # Heroku Settings
+
+load_dotenv(find_dotenv())
+
+DATABASES = {
+    "default": dj_database_url.config(default="sqlite://db.slite3")
+}
+
+
 django_on_heroku.settings(locals(), staticfiles=False)
 del DATABASES["default"]["OPTIONS"]["sslmode"]
