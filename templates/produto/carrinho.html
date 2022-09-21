@@ -39,7 +39,7 @@
   
     <div class="card_container">       
         {% if produto.image %}
-            <div class="cart_item_image"><a href="{{produto.get_absolute_url}}"><img src="/media/{{ produto.image}}" alt=""></a></div>
+            <div class="cart_item_image"><a href="{{produto.get_absolute_url}}"><img src="{{produto.image.url}}" alt=""></a></div>
         {% else %}
             <div class="cart_item_image"><a href="{{produto.get_absolute_url}}"><img src="{% static '/img/not-found-product.jpg' %}" alt=""></a></div>    
         {% endif %}

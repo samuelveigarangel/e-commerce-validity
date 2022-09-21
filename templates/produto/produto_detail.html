@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col">    
         {%if product.image %}
-            <img class="img-produto" src='/media/{{product.image}}'>
+            <img class="img-produto" src='{{product.image.url}}'>
         {% else%}
             <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
         {%endif%}
