@@ -68,9 +68,9 @@
       <div class="produto-prec">
         <div style="display: flex; justify-content: space-between;">
           <div>
-            <p>{{product.price|conversao}}</p>
+            <p><strong>{{product.price|conversao}}</strong></p>
           </div>
-          <p>Un</p>  
+          <p><strong>Un</strong></p>  
         </div>
         <div class="btn-add">
           <form method="post">
@@ -91,7 +91,11 @@
 
 <script type="text/javascript" src="{% static 'js/countdown.js' %}"></script>
 <script>
+<<<<<<< HEAD
   var cores = ['#7d35ed', '#e93f3f', '#e4bf2a']
+=======
+  var cores = ['#7d35ed', '#e93f3f', '#e4bf2a' ]
+>>>>>>> dev-v1.0
   var div_color = document.getElementsByClassName('div-categoria');
   for(var i= 0; i < div_color.length; i++){
     console.log(i)
