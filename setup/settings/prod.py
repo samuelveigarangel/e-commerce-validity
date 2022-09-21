@@ -9,7 +9,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "e-commerce-validity.herokuapp.com",
+    "*",
 ]
 
 # Amazon S3 Settings
