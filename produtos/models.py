@@ -34,7 +34,7 @@ class Produto(models.Model):
     category = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     description = models.TextField(default="", blank=True, null=True)
     slug = models.SlugField(max_length=250, null=True, blank=True)
-    image = models.ImageField(upload_to="products/%Y/%m/%d", blank=True, null=True)
+    image = models.ImageField(upload_to="products/%Y/%m/%d", blank=False, null=False)
     expiration_date = models.DateField(null=True, blank=True)
     supermarket = models.ForeignKey(
         Lojista,
