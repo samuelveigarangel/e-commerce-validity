@@ -2,8 +2,8 @@ body{
     font-family: 'Hind Madurai', sans-serif;
     font-size: 14px;
     background: white;
-    overflow-x: hidden;
 }
+
 @media (min-width: 900px){
     .container{
         max-width: 1200px;
