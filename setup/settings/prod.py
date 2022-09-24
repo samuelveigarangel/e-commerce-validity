@@ -1,6 +1,8 @@
 import django_on_heroku
 import dj_database_url
 from dotenv import load_dotenv, find_dotenv
+from decouple import config
+from pathlib import os
 
 from .base import *
 
