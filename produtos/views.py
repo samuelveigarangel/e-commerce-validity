@@ -166,10 +166,17 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
                 )
 
                 for prod, qnt in zip(product, dict_car.values()):
-                    order_item, created = OrdemItem.objects.get_or_create(
-                        product=prod, order=order, quantity=qnt
-                    )
-                    itens.append(order_item)
+                    # verifica se a qnt comprada ultrapassa a do estoque
+                    if prod.qnt_stock >= (qnt + prod.sold):
+                        order_item, created = OrdemItem.objects.get_or_create(
+                            product=prod, order=order, quantity=qnt
+                        )
+                        prod.sold += qnt
+                        prod.save()
+                        itens.append(order_item)
+                    else:
+                        messages.warning(request, 'Não foi possível finalizar seu carrinho, verifique a quantidade dos itens.')
+                        return redirect("produtos:ordemview")
 
                 order.supermarket = Lojista.objects.get(
                     supermarket_id=product.values_list("supermarket", flat=True).first()
