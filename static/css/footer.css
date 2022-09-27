@@ -1,16 +1,6 @@
 footer{
     background-color: rgb(246, 243, 234);
     padding: 4rem 0rem 1.5rem;
-    bottom: 0;
-}
-@media (max-width: 766px){
-  footer{
-    z-index: -1;
-    bottom:0;
-    left:0;
-    width: 100%;
-  }
-  
 }
 .footer-basic {
     color:#4b4c4d;

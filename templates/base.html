@@ -22,9 +22,17 @@
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-
+    <style>
+        .flex-wrapper {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      </style>
 </head>
 <body>
+    <div class="flex-wrapper">
     <main style="margin-bottom: 100px;">
         <header style="box-shadow: rgb(236 236 236) 0px -1px 0px inset; min-height:50px;">
             {% include 'navbar.html' %}
@@ -39,6 +47,7 @@
     <footer>
         {% include 'footer.html' %}
     </footer>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/j/bootstrap.min.js"></script>
