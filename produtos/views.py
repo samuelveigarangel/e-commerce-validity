@@ -49,6 +49,7 @@ class HomeView(ListView):
         print(location)
 
     def get_queryset(self):
+        print('ola')
         qs = super().get_queryset()
         return qs.filter(expiration_date__gte=date.today() + timedelta(days=1))
 
