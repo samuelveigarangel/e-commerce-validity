@@ -18,7 +18,7 @@
 * [Como executar o projeto](#como-executar-o-projeto)
 # Sobre o projeto
 
-Um projeto para vender as melhores ofertas de produtos perto da validade. Inicialmente, apenas alimentos estão disponíveis no site. 
+Um projeto para vender as melhores ofertas de produtos perto da validade. Como o site é focado para produtos perto da validade, não é viável o serviço de entrega para outras cidades, então é mostrado apenas produtos que estão localizados na mesma cidade do usuário. Inicialmente, apenas alimentos estão disponíveis no site. 
 
 Qualquer empresa que revenda alimentos, poderá ser parceira do site. Então, cada produto estará associado algum supermercado. A ideia é mostrar para os clientes os produtos com as melhores ofertas perto de sua localidade. Com um portal dedicado aos lojistas, eles poderão ver seus pedidos, além de poder cadastrar novos produtos no site.
 
@@ -90,9 +90,7 @@ Utilizei heroku como serviço de hospedagem e AWS S3 para hospedar as fotos dos 
 ## Melhorias futuras
 - Adicionar a parte de pagamento e entrega de produtos.
 - Colocar ofertas especiais no início.
-- Mostrar apenas produtos baseado na localização do usuário. Site vai indentificar a região do usuário.
 - Chat online com o lojista.
-- Adicionar funcionalidade que não permite realizar a comprar se não haver mais produtos em estoque.
 
 <br></br>
 # Como executar o projeto
