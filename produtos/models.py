@@ -52,6 +52,8 @@ class Produto(models.Model):
     def get_absolute_url(self):
         return reverse("produtos:produto_detail", kwargs={"slug": self.slug})
 
+    def get_stock(self):
+        return self.qnt_stock - self.sold
 
 pre_save.connect(slug_generator, sender=Produto)
 

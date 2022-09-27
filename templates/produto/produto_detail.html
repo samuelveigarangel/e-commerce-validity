@@ -24,6 +24,7 @@
         <p class="product-price">{{product.price|conversao}}</p>
         <p>{{product.expiration_date}}</p>
         <p>{{product.supermarket}}</p>
+        <p class="qnt">{{product.get_stock}} disponíveis</p>
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn-add-carrinho">Adicionar ao carrinho</button>

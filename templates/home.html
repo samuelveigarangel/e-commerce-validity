@@ -15,42 +15,43 @@
 
 <div class="row">
   {% for product in products %}
-  <div class="produto">
-    <div class="produto-img-descric">
-      <a href="{{product.get_absolute_url}}" class="produto-link">
-        {%if product.image %}
-          <img class="img-produto" src='{{product.image.url}}'>
-        {% else%}
-          <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
-        {%endif%}
-      </a>
-       
-
-    </div>
-    <div class="produto-body">
-      <div class="descricao-produto">
-        <p>{{product.name}}</p>
-      </div>
-      <div class="produto-prec">
-        <div style="display: flex; justify-content: space-between;">
-          <div>
-            <p><strong>{{product.price|conversao}}</strong></p>
-          </div>
-          <p><strong>Un</strong></p>  
-        </div>
-        <div class="btn-add">
-          <form method="post">
-            {% csrf_token %}
-            <input type="hidden" value="{{product.id}}" name="id">
-            <button type="submit">Adicionar</button>
-          </form>
-        </div>
-        <span class="countdown" style="display: none;">{{product.expiration_date|date:'Y-m-d'}}</span>
-        <span class="show-countdown"></span>
-      </div>
-    </div>
-  </div>
+    {% if product.get_stock > 0 %}
+      <div class="produto">
+        <div class="produto-img-descric">
+          <a href="{{product.get_absolute_url}}" class="produto-link">
+            {%if product.image %}
+              <img class="img-produto" src='{{product.image.url}}'>
+            {% else%}
+              <img class="img-produto" src="{% static '/img/not-found-product.jpg' %}">
+            {%endif%}
+          </a>
           
+
+        </div>
+        <div class="produto-body">
+          <div class="descricao-produto">
+            <p>{{product.name}}</p>
+          </div>
+          <div class="produto-prec">
+            <div style="display: flex; justify-content: space-between;">
+              <div>
+                <p><strong>{{product.price|conversao}}</strong></p>
+              </div>
+              <p><strong>Un</strong></p>  
+            </div>
+            <div class="btn-add">
+              <form method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{product.id}}" name="id">
+                <button type="submit">Adicionar</button>
+              </form>
+            </div>
+            <span class="countdown" style="display: none;">{{product.expiration_date|date:'Y-m-d'}}</span>
+            <span class="show-countdown"></span>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   {% endfor %}
 </div>
 
