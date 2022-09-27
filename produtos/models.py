@@ -2,7 +2,6 @@ from django.db import models
 from users.models import CustomUser, Lojista
 from django.urls import reverse
 from .random_number import random_number
-from django.utils.text import slugify
 from .utils import unique_slug_generator
 from django.db.models.signals import pre_save
 

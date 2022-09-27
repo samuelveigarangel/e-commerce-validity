@@ -35,22 +35,18 @@ class HomeView(ListView):
 
         request.session["cart"] = cart
 
-        return redirect("produtos:ordemview")
+        return redirect("produtos:ordemview")        
 
-    def get(self, request, *args, **kwargs):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    def get_queryset(self):
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0]
         else:
-            ip = request.META.get('REMOTE_ADDR')
-
+            ip = self.request.META.get('REMOTE_ADDR')
         g = GeoIP2()
         location = g.city(ip)['city']
-        return super().get(*args, **kwargs)
-
-    def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(expiration_date__gte=date.today() + timedelta(days=1))
+        return qs.filter(Q (expiration_date__gte=date.today() + timedelta(days=1)) & Q(supermarket__city__icontains=location))
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
