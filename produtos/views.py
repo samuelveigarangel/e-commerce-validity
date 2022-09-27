@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from datetime import date, timedelta
+from django.contrib.gis.geoip2 import GeoIP2
 
 # Create your views here.
 
@@ -35,6 +36,17 @@ class HomeView(ListView):
         request.session["cart"] = cart
 
         return redirect("produtos:ordemview")
+
+    def get(self, request, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+
+        g = GeoIP2()
+        location = g.city(ip)['city']
+        print(location)
 
     def get_queryset(self):
         qs = super().get_queryset()

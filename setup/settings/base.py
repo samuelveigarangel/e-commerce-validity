@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path, os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "tempus_dominus",
     "django_extensions",
     'storages',
+    'geoip2',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Extend User
 AUTH_USER_MODEL = "users.CustomUser"
 
+GEOIP_PATH = os.path.join('geoip')
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
