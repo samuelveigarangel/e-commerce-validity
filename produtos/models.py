@@ -54,6 +54,7 @@ class Produto(models.Model):
     def get_stock(self):
         return self.qnt_stock - self.sold
 
+
 pre_save.connect(slug_generator, sender=Produto)
 
 

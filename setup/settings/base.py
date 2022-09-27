@@ -34,8 +34,8 @@ INSTALLED_APPS = [
     "localflavor",
     "tempus_dominus",
     "django_extensions",
-    'storages',
-    'geoip2',
+    "storages",
+    "geoip2",
 ]
 
 MIDDLEWARE = [
@@ -110,7 +110,7 @@ USE_TZ = True
 # MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # MEDIA_URL = "/media/"
 
-#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -120,7 +120,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Extend User
 AUTH_USER_MODEL = "users.CustomUser"
 
-GEOIP_PATH = os.path.join('geoip')
+GEOIP_PATH = os.path.join("geoip")
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

@@ -16,35 +16,35 @@ ALLOWED_HOSTS = [
 
 # Amazon S3 Settings
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
 
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
 
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
 
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
-AWS_DEFAULT_ACL = 'public-read'
+AWS_DEFAULT_ACL = "public-read"
 
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 
-AWS_LOCATION = 'static'
+AWS_LOCATION = "static"
 
 AWS_QUERYSTRING_AUTH = False
 
-AWS_HEADERS = {'Access-Control-Allow-Origin': '*'}
+AWS_HEADERS = {"Access-Control-Allow-Origin": "*"}
 
-DEFAULT_FILE_STORAGE = 'setup.settings.storage_backends.MediaStorage'
+DEFAULT_FILE_STORAGE = "setup.settings.storage_backends.MediaStorage"
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3StaticStorage"
 
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
+    os.path.join(BASE_DIR, "static/"),
 ]
 
 DEBUG_PROPAGATE_EXPECTIONS = True
@@ -68,7 +68,7 @@ LOGGING = {
     "loggers": {
         "MYAPP": {
             "handlers": ["console"],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            "level": os.getenv("DJANGO_LOG_LEVEL", "DEBUG"),
         },
     },
 }

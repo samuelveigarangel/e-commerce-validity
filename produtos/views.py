@@ -14,6 +14,18 @@ from django.contrib.gis.geoip2 import GeoIP2
 # Create your views here.
 
 
+def get_location(request):
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(",")[0]
+    else:
+        ip = request.META.get("REMOTE_ADDR")
+    g = GeoIP2()
+    location = g.city(ip)["city"]
+    print(location)
+    return location
+
+
 class HomeView(ListView):
     model = Produto
     context_object_name = "products"
@@ -35,19 +47,14 @@ class HomeView(ListView):
 
         request.session["cart"] = cart
 
-        return redirect("produtos:ordemview")        
+        return redirect("produtos:ordemview")
 
     def get_queryset(self):
-        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = self.request.META.get('REMOTE_ADDR')
-        g = GeoIP2()
-        location = g.city(ip)['city']
-        print(location)
         qs = super().get_queryset()
-        return qs.filter(Q (expiration_date__gte=date.today() + timedelta(days=1)) & Q(supermarket__city__icontains=location))
+        return qs.filter(
+            Q(expiration_date__gte=date.today() + timedelta(days=1))
+            & Q(supermarket__city__icontains=get_location(self.request))
+        )
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -85,6 +92,7 @@ class CategoriaProdutoView(ListView):
         context["products"] = Produto.objects.filter(
             Q(category__slug=self.kwargs["slug"])
             & Q(expiration_date__gte=date.today() + timedelta(days=1))
+            & Q(supermarket__city__icontains=get_location(self.request))
         )
         return context
 
@@ -184,7 +192,10 @@ class OrdemView(UserPassesTestMixin, LoginRequiredMixin, View):
                         prod.save()
                         itens.append(order_item)
                     else:
-                        messages.warning(request, 'Não foi possível finalizar seu carrinho, verifique a quantidade dos itens.')
+                        messages.warning(
+                            request,
+                            "Não foi possível finalizar seu carrinho, verifique a quantidade dos itens.",
+                        )
                         return redirect("produtos:ordemview")
 
                 order.supermarket = Lojista.objects.get(
