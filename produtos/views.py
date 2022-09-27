@@ -45,6 +45,7 @@ class HomeView(ListView):
             ip = self.request.META.get('REMOTE_ADDR')
         g = GeoIP2()
         location = g.city(ip)['city']
+        print(location)
         qs = super().get_queryset()
         return qs.filter(Q (expiration_date__gte=date.today() + timedelta(days=1)) & Q(supermarket__city__icontains=location))
 
