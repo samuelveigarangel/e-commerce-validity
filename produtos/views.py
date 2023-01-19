@@ -34,16 +34,12 @@ class HomeView(ListView):
     def post(self, request, *args, **kwargs):
         product = request.POST.get("id")
         cart = request.session.get("cart")
-
-        if cart:
-            quantity = cart.get(product)
-            if quantity:
-                cart[product] = quantity + 1
-            else:
-                cart[product] = 1
-        else:
+        
+        if cart is None:
             cart = {}
-            cart[product] = 1
+
+        cart.setdefault(product, 0)
+        cart[product] += 1
 
         request.session["cart"] = cart
 
@@ -51,10 +47,13 @@ class HomeView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(
-            Q(expiration_date__gte=date.today() + timedelta(days=1))
-            & Q(supermarket__city__icontains=get_location(self.request))
-        )
+        try:
+            return qs.filter(
+                Q(expiration_date__gte=date.today() + timedelta(days=1))
+                & Q(supermarket__city__icontains=get_location(self.request))
+            )
+        except:
+            return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -80,6 +79,7 @@ class ProcurarProdutoView(ListView):
                     "Produto não encontrado. Tente novamente com outro nome!",
                 )
                 return qs.none()
+        return qs
 
 
 class CategoriaProdutoView(ListView):
@@ -106,15 +106,11 @@ class ProdutoDetail(DetailView):
         product = str(self.get_object().id)
         cart = request.session.get("cart")
 
-        if cart:
-            quantity = cart.get(product)
-            if quantity:
-                cart[product] = quantity + 1
-            else:
-                cart[product] = 1
-        else:
+        if cart is None:
             cart = {}
-            cart[product] = 1
+
+        cart.setdefault(product, 0)
+        cart[product] += 1
 
         request.session["cart"] = cart
 
