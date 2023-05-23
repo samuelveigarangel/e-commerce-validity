@@ -18,7 +18,7 @@
 * [Como executar o projeto](#como-executar-o-projeto)
 # Sobre o projeto
 
-Um projeto para vender as melhores ofertas de produtos perto da validade. Como o site é focado para produtos perto da validade, não é viável o serviço de entrega para outras cidades, então é mostrado apenas produtos que estão localizados na mesma cidade do usuário. Inicialmente, apenas alimentos estão disponíveis no site. 
+Um projeto para vender as melhores ofertas de produtos perto da validade. Como o site é focado para produtos perto da validade, não é viável o serviço de entrega para outras cidades, então é mostrado apenas produtos que estão localizados na mesma cidade do usuário ou perto da sua localidade. Inicialmente, apenas alimentos estão disponíveis no site. 
 
 Qualquer empresa que revenda alimentos, poderá ser parceira do site. Então, cada produto estará associado algum supermercado. A ideia é mostrar para os clientes os produtos com as melhores ofertas perto de sua localidade. Com um portal dedicado aos lojistas, eles poderão ver seus pedidos, além de poder cadastrar novos produtos no site.
 
